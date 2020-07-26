@@ -13,12 +13,19 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "Proposal.pbobjc.h"
- #import "Transaction.pbobjc.h"
+#import "Proposal.pbobjc.h"
+#import "Transaction.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#pragma clang diagnostic ignored "-Wdollar-in-identifier-extension"
+
+#pragma mark - Objective C Class declarations
+// Forward declarations of Objective C classes that we can use as
+// static values in struct initializers.
+// We don't use [Foo class] because it is not a static value.
+GPBObjCClassDeclaration(Transaction);
 
 #pragma mark - ProposalRoot
 
@@ -66,16 +73,16 @@ typedef struct Proposal__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "height",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = Proposal_FieldNumber_Height,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(Proposal__storage_, height),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeUInt64,
       },
       {
         .name = "transactionsArray",
-        .dataTypeSpecific.className = GPBStringifySymbol(Transaction),
+        .dataTypeSpecific.clazz = GPBObjCClass(Transaction),
         .number = Proposal_FieldNumber_TransactionsArray,
         .hasIndex = GPBNoHasBit,
         .offset = (uint32_t)offsetof(Proposal__storage_, transactionsArray),
@@ -84,11 +91,11 @@ typedef struct Proposal__storage_ {
       },
       {
         .name = "createdTime",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = Proposal_FieldNumber_CreatedTime,
         .hasIndex = 1,
         .offset = (uint32_t)offsetof(Proposal__storage_, createdTime),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeUInt64,
       },
     };
@@ -99,8 +106,10 @@ typedef struct Proposal__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(Proposal__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;

@@ -13,14 +13,24 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "Block.pbobjc.h"
- #import "Primitive.pbobjc.h"
- #import "Transaction.pbobjc.h"
+#import "Block.pbobjc.h"
+#import "Primitive.pbobjc.h"
+#import "Transaction.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 #pragma clang diagnostic ignored "-Wdirect-ivar-access"
+#pragma clang diagnostic ignored "-Wdollar-in-identifier-extension"
+
+#pragma mark - Objective C Class declarations
+// Forward declarations of Objective C classes that we can use as
+// static values in struct initializers.
+// We don't use [Foo class] because it is not a static value.
+GPBObjCClassDeclaration(Block_v1);
+GPBObjCClassDeclaration(Block_v1_Payload);
+GPBObjCClassDeclaration(Signature);
+GPBObjCClassDeclaration(Transaction);
 
 #pragma mark - BlockRoot
 
@@ -66,7 +76,7 @@ typedef struct Block_v1__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "payload",
-        .dataTypeSpecific.className = GPBStringifySymbol(Block_v1_Payload),
+        .dataTypeSpecific.clazz = GPBObjCClass(Block_v1_Payload),
         .number = Block_v1_FieldNumber_Payload,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(Block_v1__storage_, payload),
@@ -75,7 +85,7 @@ typedef struct Block_v1__storage_ {
       },
       {
         .name = "signaturesArray",
-        .dataTypeSpecific.className = GPBStringifySymbol(Signature),
+        .dataTypeSpecific.clazz = GPBObjCClass(Signature),
         .number = Block_v1_FieldNumber_SignaturesArray,
         .hasIndex = GPBNoHasBit,
         .offset = (uint32_t)offsetof(Block_v1__storage_, signaturesArray),
@@ -90,8 +100,10 @@ typedef struct Block_v1__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(Block_v1__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -128,7 +140,7 @@ typedef struct Block_v1_Payload__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "transactionsArray",
-        .dataTypeSpecific.className = GPBStringifySymbol(Transaction),
+        .dataTypeSpecific.clazz = GPBObjCClass(Transaction),
         .number = Block_v1_Payload_FieldNumber_TransactionsArray,
         .hasIndex = GPBNoHasBit,
         .offset = (uint32_t)offsetof(Block_v1_Payload__storage_, transactionsArray),
@@ -137,43 +149,43 @@ typedef struct Block_v1_Payload__storage_ {
       },
       {
         .name = "txNumber",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = Block_v1_Payload_FieldNumber_TxNumber,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(Block_v1_Payload__storage_, txNumber),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeUInt32,
       },
       {
         .name = "height",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = Block_v1_Payload_FieldNumber_Height,
         .hasIndex = 1,
         .offset = (uint32_t)offsetof(Block_v1_Payload__storage_, height),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeUInt64,
       },
       {
         .name = "prevBlockHash",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = Block_v1_Payload_FieldNumber_PrevBlockHash,
         .hasIndex = 2,
         .offset = (uint32_t)offsetof(Block_v1_Payload__storage_, prevBlockHash),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
         .name = "createdTime",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = Block_v1_Payload_FieldNumber_CreatedTime,
         .hasIndex = 3,
         .offset = (uint32_t)offsetof(Block_v1_Payload__storage_, createdTime),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeUInt64,
       },
       {
         .name = "rejectedTransactionsHashesArray",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = Block_v1_Payload_FieldNumber_RejectedTransactionsHashesArray,
         .hasIndex = GPBNoHasBit,
         .offset = (uint32_t)offsetof(Block_v1_Payload__storage_, rejectedTransactionsHashesArray),
@@ -188,9 +200,11 @@ typedef struct Block_v1_Payload__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(Block_v1_Payload__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    [localDescriptor setupContainingMessageClassName:GPBStringifySymbol(Block_v1)];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    [localDescriptor setupContainingMessageClass:GPBObjCClass(Block_v1)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -218,7 +232,7 @@ typedef struct Block__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "blockV1",
-        .dataTypeSpecific.className = GPBStringifySymbol(Block_v1),
+        .dataTypeSpecific.clazz = GPBObjCClass(Block_v1),
         .number = Block_FieldNumber_BlockV1,
         .hasIndex = -1,
         .offset = (uint32_t)offsetof(Block__storage_, blockV1),
@@ -233,14 +247,16 @@ typedef struct Block__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(Block__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
     static const char *oneofs[] = {
       "blockVersion",
     };
     [localDescriptor setupOneofs:oneofs
                            count:(uint32_t)(sizeof(oneofs) / sizeof(char*))
                    firstHasIndex:-1];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -249,9 +265,9 @@ typedef struct Block__storage_ {
 @end
 
 void Block_ClearBlockVersionOneOfCase(Block *message) {
-  GPBDescriptor *descriptor = [message descriptor];
+  GPBDescriptor *descriptor = [Block descriptor];
   GPBOneofDescriptor *oneof = [descriptor.oneofs objectAtIndex:0];
-  GPBMaybeClearOneof(message, oneof, -1, 0);
+  GPBClearOneof(message, oneof);
 }
 
 #pragma clang diagnostic pop

@@ -13,20 +13,23 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
-#if GPB_USE_PROTOBUF_FRAMEWORK_IMPORTS
- #import <Protobuf/Empty.pbobjc.h>
-#else
- #import "google/protobuf/Empty.pbobjc.h"
-#endif
+#import <stdatomic.h>
 
- #import "Endpoint.pbobjc.h"
- #import "Transaction.pbobjc.h"
- #import "Queries.pbobjc.h"
- #import "QryResponses.pbobjc.h"
+#import "Endpoint.pbobjc.h"
+#import "Transaction.pbobjc.h"
+#import "Queries.pbobjc.h"
+#import "QryResponses.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#pragma clang diagnostic ignored "-Wdollar-in-identifier-extension"
+
+#pragma mark - Objective C Class declarations
+// Forward declarations of Objective C classes that we can use as
+// static values in struct initializers.
+// We don't use [Foo class] because it is not a static value.
+GPBObjCClassDeclaration(Transaction);
 
 #pragma mark - EndpointRoot
 
@@ -54,7 +57,7 @@ static GPBFileDescriptor *EndpointRoot_FileDescriptor(void) {
 #pragma mark - Enum TxStatus
 
 GPBEnumDescriptor *TxStatus_EnumDescriptor(void) {
-  static GPBEnumDescriptor *descriptor = NULL;
+  static _Atomic(GPBEnumDescriptor*) descriptor = nil;
   if (!descriptor) {
     static const char *valueNames =
         "StatelessValidationFailed\000StatelessValid"
@@ -80,7 +83,8 @@ GPBEnumDescriptor *TxStatus_EnumDescriptor(void) {
                                            values:values
                                             count:(uint32_t)(sizeof(values) / sizeof(int32_t))
                                      enumVerifier:TxStatus_IsValidValue];
-    if (!OSAtomicCompareAndSwapPtrBarrier(nil, worker, (void * volatile *)&descriptor)) {
+    GPBEnumDescriptor *expected = nil;
+    if (!atomic_compare_exchange_strong(&descriptor, &expected, worker)) {
       [worker release];
     }
   }
@@ -136,43 +140,43 @@ typedef struct ToriiResponse__storage_ {
         .number = ToriiResponse_FieldNumber_TxStatus,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(ToriiResponse__storage_, txStatus),
-        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldHasEnumDescriptor),
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldHasEnumDescriptor | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeEnum,
       },
       {
         .name = "txHash",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = ToriiResponse_FieldNumber_TxHash,
         .hasIndex = 1,
         .offset = (uint32_t)offsetof(ToriiResponse__storage_, txHash),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
         .name = "errOrCmdName",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = ToriiResponse_FieldNumber_ErrOrCmdName,
         .hasIndex = 2,
         .offset = (uint32_t)offsetof(ToriiResponse__storage_, errOrCmdName),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
         .name = "failedCmdIndex",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = ToriiResponse_FieldNumber_FailedCmdIndex,
         .hasIndex = 3,
         .offset = (uint32_t)offsetof(ToriiResponse__storage_, failedCmdIndex),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeUInt64,
       },
       {
         .name = "errorCode",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = ToriiResponse_FieldNumber_ErrorCode,
         .hasIndex = 4,
         .offset = (uint32_t)offsetof(ToriiResponse__storage_, errorCode),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeUInt32,
       },
     };
@@ -183,8 +187,10 @@ typedef struct ToriiResponse__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(ToriiResponse__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -195,13 +201,13 @@ typedef struct ToriiResponse__storage_ {
 int32_t ToriiResponse_TxStatus_RawValue(ToriiResponse *message) {
   GPBDescriptor *descriptor = [ToriiResponse descriptor];
   GPBFieldDescriptor *field = [descriptor fieldWithNumber:ToriiResponse_FieldNumber_TxStatus];
-  return GPBGetMessageInt32Field(message, field);
+  return GPBGetMessageRawEnumField(message, field);
 }
 
 void SetToriiResponse_TxStatus_RawValue(ToriiResponse *message, int32_t value) {
   GPBDescriptor *descriptor = [ToriiResponse descriptor];
   GPBFieldDescriptor *field = [descriptor fieldWithNumber:ToriiResponse_FieldNumber_TxStatus];
-  GPBSetInt32IvarWithFieldInternal(message, field, value, descriptor.file.syntax);
+  GPBSetMessageRawEnumField(message, field, value);
 }
 
 #pragma mark - TxStatusRequest
@@ -223,11 +229,11 @@ typedef struct TxStatusRequest__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "txHash",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = TxStatusRequest_FieldNumber_TxHash,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(TxStatusRequest__storage_, txHash),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
     };
@@ -238,8 +244,10 @@ typedef struct TxStatusRequest__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(TxStatusRequest__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -266,7 +274,7 @@ typedef struct TxList__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "transactionsArray",
-        .dataTypeSpecific.className = GPBStringifySymbol(Transaction),
+        .dataTypeSpecific.clazz = GPBObjCClass(Transaction),
         .number = TxList_FieldNumber_TransactionsArray,
         .hasIndex = GPBNoHasBit,
         .offset = (uint32_t)offsetof(TxList__storage_, transactionsArray),
@@ -281,8 +289,10 @@ typedef struct TxList__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(TxList__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;

@@ -13,13 +13,42 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "Commands.pbobjc.h"
- #import "Primitive.pbobjc.h"
+#import <stdatomic.h>
+
+#import "Commands.pbobjc.h"
+#import "Primitive.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 #pragma clang diagnostic ignored "-Wdirect-ivar-access"
+#pragma clang diagnostic ignored "-Wdollar-in-identifier-extension"
+
+#pragma mark - Objective C Class declarations
+// Forward declarations of Objective C classes that we can use as
+// static values in struct initializers.
+// We don't use [Foo class] because it is not a static value.
+GPBObjCClassDeclaration(AddAssetQuantity);
+GPBObjCClassDeclaration(AddPeer);
+GPBObjCClassDeclaration(AddSignatory);
+GPBObjCClassDeclaration(AppendRole);
+GPBObjCClassDeclaration(CallEngine);
+GPBObjCClassDeclaration(CompareAndSetAccountDetail);
+GPBObjCClassDeclaration(CreateAccount);
+GPBObjCClassDeclaration(CreateAsset);
+GPBObjCClassDeclaration(CreateDomain);
+GPBObjCClassDeclaration(CreateRole);
+GPBObjCClassDeclaration(DetachRole);
+GPBObjCClassDeclaration(GrantPermission);
+GPBObjCClassDeclaration(Peer);
+GPBObjCClassDeclaration(RemovePeer);
+GPBObjCClassDeclaration(RemoveSignatory);
+GPBObjCClassDeclaration(RevokePermission);
+GPBObjCClassDeclaration(SetAccountDetail);
+GPBObjCClassDeclaration(SetAccountQuorum);
+GPBObjCClassDeclaration(SetSettingValue);
+GPBObjCClassDeclaration(SubtractAssetQuantity);
+GPBObjCClassDeclaration(TransferAsset);
 
 #pragma mark - CommandsRoot
 
@@ -65,20 +94,20 @@ typedef struct AddAssetQuantity__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "assetId",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = AddAssetQuantity_FieldNumber_AssetId,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(AddAssetQuantity__storage_, assetId),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
         .name = "amount",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = AddAssetQuantity_FieldNumber_Amount,
         .hasIndex = 1,
         .offset = (uint32_t)offsetof(AddAssetQuantity__storage_, amount),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
     };
@@ -89,8 +118,10 @@ typedef struct AddAssetQuantity__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(AddAssetQuantity__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -117,7 +148,7 @@ typedef struct AddPeer__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "peer",
-        .dataTypeSpecific.className = GPBStringifySymbol(Peer),
+        .dataTypeSpecific.clazz = GPBObjCClass(Peer),
         .number = AddPeer_FieldNumber_Peer,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(AddPeer__storage_, peer),
@@ -132,8 +163,10 @@ typedef struct AddPeer__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(AddPeer__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -160,11 +193,11 @@ typedef struct RemovePeer__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "publicKey",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = RemovePeer_FieldNumber_PublicKey,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(RemovePeer__storage_, publicKey),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
     };
@@ -175,8 +208,10 @@ typedef struct RemovePeer__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(RemovePeer__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -205,20 +240,20 @@ typedef struct AddSignatory__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "accountId",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = AddSignatory_FieldNumber_AccountId,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(AddSignatory__storage_, accountId),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
         .name = "publicKey",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = AddSignatory_FieldNumber_PublicKey,
         .hasIndex = 1,
         .offset = (uint32_t)offsetof(AddSignatory__storage_, publicKey),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
     };
@@ -229,8 +264,10 @@ typedef struct AddSignatory__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(AddSignatory__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -261,29 +298,29 @@ typedef struct CreateAsset__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "assetName",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = CreateAsset_FieldNumber_AssetName,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(CreateAsset__storage_, assetName),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
         .name = "domainId",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = CreateAsset_FieldNumber_DomainId,
         .hasIndex = 1,
         .offset = (uint32_t)offsetof(CreateAsset__storage_, domainId),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
         .name = "precision",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = CreateAsset_FieldNumber_Precision,
         .hasIndex = 2,
         .offset = (uint32_t)offsetof(CreateAsset__storage_, precision),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeUInt32,
       },
     };
@@ -294,8 +331,10 @@ typedef struct CreateAsset__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(CreateAsset__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -326,29 +365,29 @@ typedef struct CreateAccount__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "accountName",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = CreateAccount_FieldNumber_AccountName,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(CreateAccount__storage_, accountName),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
         .name = "domainId",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = CreateAccount_FieldNumber_DomainId,
         .hasIndex = 1,
         .offset = (uint32_t)offsetof(CreateAccount__storage_, domainId),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
         .name = "publicKey",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = CreateAccount_FieldNumber_PublicKey,
         .hasIndex = 2,
         .offset = (uint32_t)offsetof(CreateAccount__storage_, publicKey),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
     };
@@ -359,8 +398,10 @@ typedef struct CreateAccount__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(CreateAccount__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -391,29 +432,29 @@ typedef struct SetAccountDetail__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "accountId",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = SetAccountDetail_FieldNumber_AccountId,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(SetAccountDetail__storage_, accountId),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
         .name = "key",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = SetAccountDetail_FieldNumber_Key,
         .hasIndex = 1,
         .offset = (uint32_t)offsetof(SetAccountDetail__storage_, key),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
         .name = "value",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = SetAccountDetail_FieldNumber_Value,
         .hasIndex = 2,
         .offset = (uint32_t)offsetof(SetAccountDetail__storage_, value),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
     };
@@ -424,8 +465,10 @@ typedef struct SetAccountDetail__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(SetAccountDetail__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -454,20 +497,20 @@ typedef struct CreateDomain__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "domainId",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = CreateDomain_FieldNumber_DomainId,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(CreateDomain__storage_, domainId),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
         .name = "defaultRole",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = CreateDomain_FieldNumber_DefaultRole,
         .hasIndex = 1,
         .offset = (uint32_t)offsetof(CreateDomain__storage_, defaultRole),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
     };
@@ -478,8 +521,10 @@ typedef struct CreateDomain__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(CreateDomain__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -508,20 +553,20 @@ typedef struct RemoveSignatory__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "accountId",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = RemoveSignatory_FieldNumber_AccountId,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(RemoveSignatory__storage_, accountId),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
         .name = "publicKey",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = RemoveSignatory_FieldNumber_PublicKey,
         .hasIndex = 1,
         .offset = (uint32_t)offsetof(RemoveSignatory__storage_, publicKey),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
     };
@@ -532,8 +577,10 @@ typedef struct RemoveSignatory__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(RemoveSignatory__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -562,20 +609,20 @@ typedef struct SetAccountQuorum__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "accountId",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = SetAccountQuorum_FieldNumber_AccountId,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(SetAccountQuorum__storage_, accountId),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
         .name = "quorum",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = SetAccountQuorum_FieldNumber_Quorum,
         .hasIndex = 1,
         .offset = (uint32_t)offsetof(SetAccountQuorum__storage_, quorum),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeUInt32,
       },
     };
@@ -586,8 +633,10 @@ typedef struct SetAccountQuorum__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(SetAccountQuorum__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -622,47 +671,47 @@ typedef struct TransferAsset__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "srcAccountId",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = TransferAsset_FieldNumber_SrcAccountId,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(TransferAsset__storage_, srcAccountId),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
         .name = "destAccountId",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = TransferAsset_FieldNumber_DestAccountId,
         .hasIndex = 1,
         .offset = (uint32_t)offsetof(TransferAsset__storage_, destAccountId),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
         .name = "assetId",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = TransferAsset_FieldNumber_AssetId,
         .hasIndex = 2,
         .offset = (uint32_t)offsetof(TransferAsset__storage_, assetId),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
         .name = "description_p",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = TransferAsset_FieldNumber_Description_p,
         .hasIndex = 3,
         .offset = (uint32_t)offsetof(TransferAsset__storage_, description_p),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
         .name = "amount",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = TransferAsset_FieldNumber_Amount,
         .hasIndex = 4,
         .offset = (uint32_t)offsetof(TransferAsset__storage_, amount),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
     };
@@ -673,8 +722,10 @@ typedef struct TransferAsset__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(TransferAsset__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -703,20 +754,20 @@ typedef struct AppendRole__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "accountId",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = AppendRole_FieldNumber_AccountId,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(AppendRole__storage_, accountId),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
         .name = "roleName",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = AppendRole_FieldNumber_RoleName,
         .hasIndex = 1,
         .offset = (uint32_t)offsetof(AppendRole__storage_, roleName),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
     };
@@ -727,8 +778,10 @@ typedef struct AppendRole__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(AppendRole__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -757,20 +810,20 @@ typedef struct DetachRole__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "accountId",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = DetachRole_FieldNumber_AccountId,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(DetachRole__storage_, accountId),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
         .name = "roleName",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = DetachRole_FieldNumber_RoleName,
         .hasIndex = 1,
         .offset = (uint32_t)offsetof(DetachRole__storage_, roleName),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
     };
@@ -781,8 +834,10 @@ typedef struct DetachRole__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(DetachRole__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -811,11 +866,11 @@ typedef struct CreateRole__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "roleName",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = CreateRole_FieldNumber_RoleName,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(CreateRole__storage_, roleName),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
@@ -835,8 +890,10 @@ typedef struct CreateRole__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(CreateRole__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -865,11 +922,11 @@ typedef struct GrantPermission__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "accountId",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = GrantPermission_FieldNumber_AccountId,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(GrantPermission__storage_, accountId),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
@@ -878,7 +935,7 @@ typedef struct GrantPermission__storage_ {
         .number = GrantPermission_FieldNumber_Permission,
         .hasIndex = 1,
         .offset = (uint32_t)offsetof(GrantPermission__storage_, permission),
-        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldHasEnumDescriptor),
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldHasEnumDescriptor | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeEnum,
       },
     };
@@ -889,8 +946,10 @@ typedef struct GrantPermission__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(GrantPermission__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -901,13 +960,13 @@ typedef struct GrantPermission__storage_ {
 int32_t GrantPermission_Permission_RawValue(GrantPermission *message) {
   GPBDescriptor *descriptor = [GrantPermission descriptor];
   GPBFieldDescriptor *field = [descriptor fieldWithNumber:GrantPermission_FieldNumber_Permission];
-  return GPBGetMessageInt32Field(message, field);
+  return GPBGetMessageRawEnumField(message, field);
 }
 
 void SetGrantPermission_Permission_RawValue(GrantPermission *message, int32_t value) {
   GPBDescriptor *descriptor = [GrantPermission descriptor];
   GPBFieldDescriptor *field = [descriptor fieldWithNumber:GrantPermission_FieldNumber_Permission];
-  GPBSetInt32IvarWithFieldInternal(message, field, value, descriptor.file.syntax);
+  GPBSetMessageRawEnumField(message, field, value);
 }
 
 #pragma mark - RevokePermission
@@ -931,11 +990,11 @@ typedef struct RevokePermission__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "accountId",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = RevokePermission_FieldNumber_AccountId,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(RevokePermission__storage_, accountId),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
@@ -944,7 +1003,7 @@ typedef struct RevokePermission__storage_ {
         .number = RevokePermission_FieldNumber_Permission,
         .hasIndex = 1,
         .offset = (uint32_t)offsetof(RevokePermission__storage_, permission),
-        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldHasEnumDescriptor),
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldHasEnumDescriptor | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeEnum,
       },
     };
@@ -955,8 +1014,10 @@ typedef struct RevokePermission__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(RevokePermission__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -967,13 +1028,13 @@ typedef struct RevokePermission__storage_ {
 int32_t RevokePermission_Permission_RawValue(RevokePermission *message) {
   GPBDescriptor *descriptor = [RevokePermission descriptor];
   GPBFieldDescriptor *field = [descriptor fieldWithNumber:RevokePermission_FieldNumber_Permission];
-  return GPBGetMessageInt32Field(message, field);
+  return GPBGetMessageRawEnumField(message, field);
 }
 
 void SetRevokePermission_Permission_RawValue(RevokePermission *message, int32_t value) {
   GPBDescriptor *descriptor = [RevokePermission descriptor];
   GPBFieldDescriptor *field = [descriptor fieldWithNumber:RevokePermission_FieldNumber_Permission];
-  GPBSetInt32IvarWithFieldInternal(message, field, value, descriptor.file.syntax);
+  GPBSetMessageRawEnumField(message, field, value);
 }
 
 #pragma mark - SubtractAssetQuantity
@@ -997,20 +1058,20 @@ typedef struct SubtractAssetQuantity__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "assetId",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = SubtractAssetQuantity_FieldNumber_AssetId,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(SubtractAssetQuantity__storage_, assetId),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
         .name = "amount",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = SubtractAssetQuantity_FieldNumber_Amount,
         .hasIndex = 1,
         .offset = (uint32_t)offsetof(SubtractAssetQuantity__storage_, amount),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
     };
@@ -1021,8 +1082,10 @@ typedef struct SubtractAssetQuantity__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(SubtractAssetQuantity__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -1056,34 +1119,34 @@ typedef struct CompareAndSetAccountDetail__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "accountId",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = CompareAndSetAccountDetail_FieldNumber_AccountId,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(CompareAndSetAccountDetail__storage_, accountId),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
         .name = "key",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = CompareAndSetAccountDetail_FieldNumber_Key,
         .hasIndex = 1,
         .offset = (uint32_t)offsetof(CompareAndSetAccountDetail__storage_, key),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
         .name = "value",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = CompareAndSetAccountDetail_FieldNumber_Value,
         .hasIndex = 2,
         .offset = (uint32_t)offsetof(CompareAndSetAccountDetail__storage_, value),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
         .name = "oldValue",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = CompareAndSetAccountDetail_FieldNumber_OldValue,
         .hasIndex = -1,
         .offset = (uint32_t)offsetof(CompareAndSetAccountDetail__storage_, oldValue),
@@ -1098,14 +1161,16 @@ typedef struct CompareAndSetAccountDetail__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(CompareAndSetAccountDetail__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
     static const char *oneofs[] = {
       "optOldValue",
     };
     [localDescriptor setupOneofs:oneofs
                            count:(uint32_t)(sizeof(oneofs) / sizeof(char*))
                    firstHasIndex:-1];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -1114,10 +1179,203 @@ typedef struct CompareAndSetAccountDetail__storage_ {
 @end
 
 void CompareAndSetAccountDetail_ClearOptOldValueOneOfCase(CompareAndSetAccountDetail *message) {
-  GPBDescriptor *descriptor = [message descriptor];
+  GPBDescriptor *descriptor = [CompareAndSetAccountDetail descriptor];
   GPBOneofDescriptor *oneof = [descriptor.oneofs objectAtIndex:0];
-  GPBMaybeClearOneof(message, oneof, -1, 0);
+  GPBClearOneof(message, oneof);
 }
+#pragma mark - SetSettingValue
+
+@implementation SetSettingValue
+
+@dynamic key;
+@dynamic value;
+
+typedef struct SetSettingValue__storage_ {
+  uint32_t _has_storage_[1];
+  NSString *key;
+  NSString *value;
+} SetSettingValue__storage_;
+
+// This method is threadsafe because it is initially called
+// in +initialize for each subclass.
++ (GPBDescriptor *)descriptor {
+  static GPBDescriptor *descriptor = nil;
+  if (!descriptor) {
+    static GPBMessageFieldDescription fields[] = {
+      {
+        .name = "key",
+        .dataTypeSpecific.clazz = Nil,
+        .number = SetSettingValue_FieldNumber_Key,
+        .hasIndex = 0,
+        .offset = (uint32_t)offsetof(SetSettingValue__storage_, key),
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
+        .dataType = GPBDataTypeString,
+      },
+      {
+        .name = "value",
+        .dataTypeSpecific.clazz = Nil,
+        .number = SetSettingValue_FieldNumber_Value,
+        .hasIndex = 1,
+        .offset = (uint32_t)offsetof(SetSettingValue__storage_, value),
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
+        .dataType = GPBDataTypeString,
+      },
+    };
+    GPBDescriptor *localDescriptor =
+        [GPBDescriptor allocDescriptorForClass:[SetSettingValue class]
+                                     rootClass:[CommandsRoot class]
+                                          file:CommandsRoot_FileDescriptor()
+                                        fields:fields
+                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
+                                   storageSize:sizeof(SetSettingValue__storage_)
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
+    descriptor = localDescriptor;
+  }
+  return descriptor;
+}
+
+@end
+
+#pragma mark - CallEngine
+
+@implementation CallEngine
+
+@dynamic optCalleeOneOfCase;
+@dynamic type;
+@dynamic caller;
+@dynamic callee;
+@dynamic input;
+
+typedef struct CallEngine__storage_ {
+  uint32_t _has_storage_[2];
+  CallEngine_EngineType type;
+  NSString *caller;
+  NSString *callee;
+  NSString *input;
+} CallEngine__storage_;
+
+// This method is threadsafe because it is initially called
+// in +initialize for each subclass.
++ (GPBDescriptor *)descriptor {
+  static GPBDescriptor *descriptor = nil;
+  if (!descriptor) {
+    static GPBMessageFieldDescription fields[] = {
+      {
+        .name = "type",
+        .dataTypeSpecific.enumDescFunc = CallEngine_EngineType_EnumDescriptor,
+        .number = CallEngine_FieldNumber_Type,
+        .hasIndex = 0,
+        .offset = (uint32_t)offsetof(CallEngine__storage_, type),
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldHasEnumDescriptor | GPBFieldClearHasIvarOnZero),
+        .dataType = GPBDataTypeEnum,
+      },
+      {
+        .name = "caller",
+        .dataTypeSpecific.clazz = Nil,
+        .number = CallEngine_FieldNumber_Caller,
+        .hasIndex = 1,
+        .offset = (uint32_t)offsetof(CallEngine__storage_, caller),
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
+        .dataType = GPBDataTypeString,
+      },
+      {
+        .name = "callee",
+        .dataTypeSpecific.clazz = Nil,
+        .number = CallEngine_FieldNumber_Callee,
+        .hasIndex = -1,
+        .offset = (uint32_t)offsetof(CallEngine__storage_, callee),
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeString,
+      },
+      {
+        .name = "input",
+        .dataTypeSpecific.clazz = Nil,
+        .number = CallEngine_FieldNumber_Input,
+        .hasIndex = 2,
+        .offset = (uint32_t)offsetof(CallEngine__storage_, input),
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
+        .dataType = GPBDataTypeString,
+      },
+    };
+    GPBDescriptor *localDescriptor =
+        [GPBDescriptor allocDescriptorForClass:[CallEngine class]
+                                     rootClass:[CommandsRoot class]
+                                          file:CommandsRoot_FileDescriptor()
+                                        fields:fields
+                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
+                                   storageSize:sizeof(CallEngine__storage_)
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    static const char *oneofs[] = {
+      "optCallee",
+    };
+    [localDescriptor setupOneofs:oneofs
+                           count:(uint32_t)(sizeof(oneofs) / sizeof(char*))
+                   firstHasIndex:-1];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
+    descriptor = localDescriptor;
+  }
+  return descriptor;
+}
+
+@end
+
+int32_t CallEngine_Type_RawValue(CallEngine *message) {
+  GPBDescriptor *descriptor = [CallEngine descriptor];
+  GPBFieldDescriptor *field = [descriptor fieldWithNumber:CallEngine_FieldNumber_Type];
+  return GPBGetMessageRawEnumField(message, field);
+}
+
+void SetCallEngine_Type_RawValue(CallEngine *message, int32_t value) {
+  GPBDescriptor *descriptor = [CallEngine descriptor];
+  GPBFieldDescriptor *field = [descriptor fieldWithNumber:CallEngine_FieldNumber_Type];
+  GPBSetMessageRawEnumField(message, field, value);
+}
+
+void CallEngine_ClearOptCalleeOneOfCase(CallEngine *message) {
+  GPBDescriptor *descriptor = [CallEngine descriptor];
+  GPBOneofDescriptor *oneof = [descriptor.oneofs objectAtIndex:0];
+  GPBClearOneof(message, oneof);
+}
+#pragma mark - Enum CallEngine_EngineType
+
+GPBEnumDescriptor *CallEngine_EngineType_EnumDescriptor(void) {
+  static _Atomic(GPBEnumDescriptor*) descriptor = nil;
+  if (!descriptor) {
+    static const char *valueNames =
+        "KSolidity\000";
+    static const int32_t values[] = {
+        CallEngine_EngineType_KSolidity,
+    };
+    static const char *extraTextFormatInfo = "\001\000)\000";
+    GPBEnumDescriptor *worker =
+        [GPBEnumDescriptor allocDescriptorForName:GPBNSStringifySymbol(CallEngine_EngineType)
+                                       valueNames:valueNames
+                                           values:values
+                                            count:(uint32_t)(sizeof(values) / sizeof(int32_t))
+                                     enumVerifier:CallEngine_EngineType_IsValidValue
+                              extraTextFormatInfo:extraTextFormatInfo];
+    GPBEnumDescriptor *expected = nil;
+    if (!atomic_compare_exchange_strong(&descriptor, &expected, worker)) {
+      [worker release];
+    }
+  }
+  return descriptor;
+}
+
+BOOL CallEngine_EngineType_IsValidValue(int32_t value__) {
+  switch (value__) {
+    case CallEngine_EngineType_KSolidity:
+      return YES;
+    default:
+      return NO;
+  }
+}
+
 #pragma mark - Command
 
 @implementation Command
@@ -1141,6 +1399,8 @@ void CompareAndSetAccountDetail_ClearOptOldValueOneOfCase(CompareAndSetAccountDe
 @dynamic transferAsset;
 @dynamic removePeer;
 @dynamic compareAndSetAccountDetail;
+@dynamic setSettingValue;
+@dynamic callEngine;
 
 typedef struct Command__storage_ {
   uint32_t _has_storage_[2];
@@ -1162,6 +1422,8 @@ typedef struct Command__storage_ {
   TransferAsset *transferAsset;
   RemovePeer *removePeer;
   CompareAndSetAccountDetail *compareAndSetAccountDetail;
+  SetSettingValue *setSettingValue;
+  CallEngine *callEngine;
 } Command__storage_;
 
 // This method is threadsafe because it is initially called
@@ -1172,7 +1434,7 @@ typedef struct Command__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "addAssetQuantity",
-        .dataTypeSpecific.className = GPBStringifySymbol(AddAssetQuantity),
+        .dataTypeSpecific.clazz = GPBObjCClass(AddAssetQuantity),
         .number = Command_FieldNumber_AddAssetQuantity,
         .hasIndex = -1,
         .offset = (uint32_t)offsetof(Command__storage_, addAssetQuantity),
@@ -1181,7 +1443,7 @@ typedef struct Command__storage_ {
       },
       {
         .name = "addPeer",
-        .dataTypeSpecific.className = GPBStringifySymbol(AddPeer),
+        .dataTypeSpecific.clazz = GPBObjCClass(AddPeer),
         .number = Command_FieldNumber_AddPeer,
         .hasIndex = -1,
         .offset = (uint32_t)offsetof(Command__storage_, addPeer),
@@ -1190,7 +1452,7 @@ typedef struct Command__storage_ {
       },
       {
         .name = "addSignatory",
-        .dataTypeSpecific.className = GPBStringifySymbol(AddSignatory),
+        .dataTypeSpecific.clazz = GPBObjCClass(AddSignatory),
         .number = Command_FieldNumber_AddSignatory,
         .hasIndex = -1,
         .offset = (uint32_t)offsetof(Command__storage_, addSignatory),
@@ -1199,7 +1461,7 @@ typedef struct Command__storage_ {
       },
       {
         .name = "appendRole",
-        .dataTypeSpecific.className = GPBStringifySymbol(AppendRole),
+        .dataTypeSpecific.clazz = GPBObjCClass(AppendRole),
         .number = Command_FieldNumber_AppendRole,
         .hasIndex = -1,
         .offset = (uint32_t)offsetof(Command__storage_, appendRole),
@@ -1208,7 +1470,7 @@ typedef struct Command__storage_ {
       },
       {
         .name = "createAccount",
-        .dataTypeSpecific.className = GPBStringifySymbol(CreateAccount),
+        .dataTypeSpecific.clazz = GPBObjCClass(CreateAccount),
         .number = Command_FieldNumber_CreateAccount,
         .hasIndex = -1,
         .offset = (uint32_t)offsetof(Command__storage_, createAccount),
@@ -1217,7 +1479,7 @@ typedef struct Command__storage_ {
       },
       {
         .name = "createAsset",
-        .dataTypeSpecific.className = GPBStringifySymbol(CreateAsset),
+        .dataTypeSpecific.clazz = GPBObjCClass(CreateAsset),
         .number = Command_FieldNumber_CreateAsset,
         .hasIndex = -1,
         .offset = (uint32_t)offsetof(Command__storage_, createAsset),
@@ -1226,7 +1488,7 @@ typedef struct Command__storage_ {
       },
       {
         .name = "createDomain",
-        .dataTypeSpecific.className = GPBStringifySymbol(CreateDomain),
+        .dataTypeSpecific.clazz = GPBObjCClass(CreateDomain),
         .number = Command_FieldNumber_CreateDomain,
         .hasIndex = -1,
         .offset = (uint32_t)offsetof(Command__storage_, createDomain),
@@ -1235,7 +1497,7 @@ typedef struct Command__storage_ {
       },
       {
         .name = "createRole",
-        .dataTypeSpecific.className = GPBStringifySymbol(CreateRole),
+        .dataTypeSpecific.clazz = GPBObjCClass(CreateRole),
         .number = Command_FieldNumber_CreateRole,
         .hasIndex = -1,
         .offset = (uint32_t)offsetof(Command__storage_, createRole),
@@ -1244,7 +1506,7 @@ typedef struct Command__storage_ {
       },
       {
         .name = "detachRole",
-        .dataTypeSpecific.className = GPBStringifySymbol(DetachRole),
+        .dataTypeSpecific.clazz = GPBObjCClass(DetachRole),
         .number = Command_FieldNumber_DetachRole,
         .hasIndex = -1,
         .offset = (uint32_t)offsetof(Command__storage_, detachRole),
@@ -1253,7 +1515,7 @@ typedef struct Command__storage_ {
       },
       {
         .name = "grantPermission",
-        .dataTypeSpecific.className = GPBStringifySymbol(GrantPermission),
+        .dataTypeSpecific.clazz = GPBObjCClass(GrantPermission),
         .number = Command_FieldNumber_GrantPermission,
         .hasIndex = -1,
         .offset = (uint32_t)offsetof(Command__storage_, grantPermission),
@@ -1262,7 +1524,7 @@ typedef struct Command__storage_ {
       },
       {
         .name = "removeSignatory",
-        .dataTypeSpecific.className = GPBStringifySymbol(RemoveSignatory),
+        .dataTypeSpecific.clazz = GPBObjCClass(RemoveSignatory),
         .number = Command_FieldNumber_RemoveSignatory,
         .hasIndex = -1,
         .offset = (uint32_t)offsetof(Command__storage_, removeSignatory),
@@ -1271,7 +1533,7 @@ typedef struct Command__storage_ {
       },
       {
         .name = "revokePermission",
-        .dataTypeSpecific.className = GPBStringifySymbol(RevokePermission),
+        .dataTypeSpecific.clazz = GPBObjCClass(RevokePermission),
         .number = Command_FieldNumber_RevokePermission,
         .hasIndex = -1,
         .offset = (uint32_t)offsetof(Command__storage_, revokePermission),
@@ -1280,7 +1542,7 @@ typedef struct Command__storage_ {
       },
       {
         .name = "setAccountDetail",
-        .dataTypeSpecific.className = GPBStringifySymbol(SetAccountDetail),
+        .dataTypeSpecific.clazz = GPBObjCClass(SetAccountDetail),
         .number = Command_FieldNumber_SetAccountDetail,
         .hasIndex = -1,
         .offset = (uint32_t)offsetof(Command__storage_, setAccountDetail),
@@ -1289,7 +1551,7 @@ typedef struct Command__storage_ {
       },
       {
         .name = "setAccountQuorum",
-        .dataTypeSpecific.className = GPBStringifySymbol(SetAccountQuorum),
+        .dataTypeSpecific.clazz = GPBObjCClass(SetAccountQuorum),
         .number = Command_FieldNumber_SetAccountQuorum,
         .hasIndex = -1,
         .offset = (uint32_t)offsetof(Command__storage_, setAccountQuorum),
@@ -1298,7 +1560,7 @@ typedef struct Command__storage_ {
       },
       {
         .name = "subtractAssetQuantity",
-        .dataTypeSpecific.className = GPBStringifySymbol(SubtractAssetQuantity),
+        .dataTypeSpecific.clazz = GPBObjCClass(SubtractAssetQuantity),
         .number = Command_FieldNumber_SubtractAssetQuantity,
         .hasIndex = -1,
         .offset = (uint32_t)offsetof(Command__storage_, subtractAssetQuantity),
@@ -1307,7 +1569,7 @@ typedef struct Command__storage_ {
       },
       {
         .name = "transferAsset",
-        .dataTypeSpecific.className = GPBStringifySymbol(TransferAsset),
+        .dataTypeSpecific.clazz = GPBObjCClass(TransferAsset),
         .number = Command_FieldNumber_TransferAsset,
         .hasIndex = -1,
         .offset = (uint32_t)offsetof(Command__storage_, transferAsset),
@@ -1316,7 +1578,7 @@ typedef struct Command__storage_ {
       },
       {
         .name = "removePeer",
-        .dataTypeSpecific.className = GPBStringifySymbol(RemovePeer),
+        .dataTypeSpecific.clazz = GPBObjCClass(RemovePeer),
         .number = Command_FieldNumber_RemovePeer,
         .hasIndex = -1,
         .offset = (uint32_t)offsetof(Command__storage_, removePeer),
@@ -1325,10 +1587,28 @@ typedef struct Command__storage_ {
       },
       {
         .name = "compareAndSetAccountDetail",
-        .dataTypeSpecific.className = GPBStringifySymbol(CompareAndSetAccountDetail),
+        .dataTypeSpecific.clazz = GPBObjCClass(CompareAndSetAccountDetail),
         .number = Command_FieldNumber_CompareAndSetAccountDetail,
         .hasIndex = -1,
         .offset = (uint32_t)offsetof(Command__storage_, compareAndSetAccountDetail),
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeMessage,
+      },
+      {
+        .name = "setSettingValue",
+        .dataTypeSpecific.clazz = GPBObjCClass(SetSettingValue),
+        .number = Command_FieldNumber_SetSettingValue,
+        .hasIndex = -1,
+        .offset = (uint32_t)offsetof(Command__storage_, setSettingValue),
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeMessage,
+      },
+      {
+        .name = "callEngine",
+        .dataTypeSpecific.clazz = GPBObjCClass(CallEngine),
+        .number = Command_FieldNumber_CallEngine,
+        .hasIndex = -1,
+        .offset = (uint32_t)offsetof(Command__storage_, callEngine),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeMessage,
       },
@@ -1340,14 +1620,16 @@ typedef struct Command__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(Command__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
     static const char *oneofs[] = {
       "command",
     };
     [localDescriptor setupOneofs:oneofs
                            count:(uint32_t)(sizeof(oneofs) / sizeof(char*))
                    firstHasIndex:-1];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -1356,9 +1638,9 @@ typedef struct Command__storage_ {
 @end
 
 void Command_ClearCommandOneOfCase(Command *message) {
-  GPBDescriptor *descriptor = [message descriptor];
+  GPBDescriptor *descriptor = [Command descriptor];
   GPBOneofDescriptor *oneof = [descriptor.oneofs objectAtIndex:0];
-  GPBMaybeClearOneof(message, oneof, -1, 0);
+  GPBClearOneof(message, oneof);
 }
 
 #pragma clang diagnostic pop

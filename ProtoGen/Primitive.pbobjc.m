@@ -13,11 +13,22 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "Primitive.pbobjc.h"
+#import <stdatomic.h>
+
+#import "Primitive.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#pragma clang diagnostic ignored "-Wdirect-ivar-access"
+#pragma clang diagnostic ignored "-Wdollar-in-identifier-extension"
+
+#pragma mark - Objective C Class declarations
+// Forward declarations of Objective C classes that we can use as
+// static values in struct initializers.
+// We don't use [Foo class] because it is not a static value.
+GPBObjCClassDeclaration(CallResult);
+GPBObjCClassDeclaration(EngineLog);
 
 #pragma mark - PrimitiveRoot
 
@@ -45,7 +56,7 @@ static GPBFileDescriptor *PrimitiveRoot_FileDescriptor(void) {
 #pragma mark - Enum RolePermission
 
 GPBEnumDescriptor *RolePermission_EnumDescriptor(void) {
-  static GPBEnumDescriptor *descriptor = NULL;
+  static _Atomic(GPBEnumDescriptor*) descriptor = nil;
   if (!descriptor) {
     static const char *valueNames =
         "CanAppendRole\000CanCreateRole\000CanDetachRol"
@@ -55,20 +66,23 @@ GPBEnumDescriptor *RolePermission_EnumDescriptor(void) {
         "ccount\000CanSetDetail\000CanCreateAsset\000CanTr"
         "ansfer\000CanReceive\000CanCreateDomain\000CanAdd"
         "DomainAssetQty\000CanSubtractDomainAssetQty"
-        "\000CanReadAssets\000CanGetRoles\000CanGetMyAccou"
-        "nt\000CanGetAllAccounts\000CanGetDomainAccount"
-        "s\000CanGetMySignatories\000CanGetAllSignatori"
-        "es\000CanGetDomainSignatories\000CanGetMyAccAs"
-        "t\000CanGetAllAccAst\000CanGetDomainAccAst\000Can"
-        "GetMyAccDetail\000CanGetAllAccDetail\000CanGet"
-        "DomainAccDetail\000CanGetMyAccTxs\000CanGetAll"
-        "AccTxs\000CanGetDomainAccTxs\000CanGetMyAccAst"
-        "Txs\000CanGetAllAccAstTxs\000CanGetDomainAccAs"
-        "tTxs\000CanGetMyTxs\000CanGetAllTxs\000CanGetBloc"
-        "ks\000CanGetPeers\000CanGrantCanSetMyQuorum\000Ca"
-        "nGrantCanAddMySignatory\000CanGrantCanRemov"
-        "eMySignatory\000CanGrantCanTransferMyAssets"
-        "\000CanGrantCanSetMyAccountDetail\000";
+        "\000CanCallEngine\000CanReadAssets\000CanGetRoles"
+        "\000CanGetMyAccount\000CanGetAllAccounts\000CanGe"
+        "tDomainAccounts\000CanGetMySignatories\000CanG"
+        "etAllSignatories\000CanGetDomainSignatories"
+        "\000CanGetMyAccAst\000CanGetAllAccAst\000CanGetDo"
+        "mainAccAst\000CanGetMyAccDetail\000CanGetAllAc"
+        "cDetail\000CanGetDomainAccDetail\000CanGetMyAc"
+        "cTxs\000CanGetAllAccTxs\000CanGetDomainAccTxs\000"
+        "CanGetMyAccAstTxs\000CanGetAllAccAstTxs\000Can"
+        "GetDomainAccAstTxs\000CanGetMyTxs\000CanGetAll"
+        "Txs\000CanGetBlocks\000CanGetPeers\000CanGetMyEng"
+        "ineReceipts\000CanGetDomainEngineReceipts\000C"
+        "anGetAllEngineReceipts\000CanGrantCanSetMyQ"
+        "uorum\000CanGrantCanAddMySignatory\000CanGrant"
+        "CanRemoveMySignatory\000CanGrantCanTransfer"
+        "MyAssets\000CanGrantCanSetMyAccountDetail\000C"
+        "anGrantCanCallEngineOnMyBehalf\000Root\000";
     static const int32_t values[] = {
         RolePermission_CanAppendRole,
         RolePermission_CanCreateRole,
@@ -88,6 +102,7 @@ GPBEnumDescriptor *RolePermission_EnumDescriptor(void) {
         RolePermission_CanCreateDomain,
         RolePermission_CanAddDomainAssetQty,
         RolePermission_CanSubtractDomainAssetQty,
+        RolePermission_CanCallEngine,
         RolePermission_CanReadAssets,
         RolePermission_CanGetRoles,
         RolePermission_CanGetMyAccount,
@@ -112,13 +127,18 @@ GPBEnumDescriptor *RolePermission_EnumDescriptor(void) {
         RolePermission_CanGetAllTxs,
         RolePermission_CanGetBlocks,
         RolePermission_CanGetPeers,
+        RolePermission_CanGetMyEngineReceipts,
+        RolePermission_CanGetDomainEngineReceipts,
+        RolePermission_CanGetAllEngineReceipts,
         RolePermission_CanGrantCanSetMyQuorum,
         RolePermission_CanGrantCanAddMySignatory,
         RolePermission_CanGrantCanRemoveMySignatory,
         RolePermission_CanGrantCanTransferMyAssets,
         RolePermission_CanGrantCanSetMyAccountDetail,
+        RolePermission_CanGrantCanCallEngineOnMyBehalf,
+        RolePermission_Root,
     };
-    static const char *extraTextFormatInfo = "/\000#\246\244\000\001#\246\244\000\002#\246\244\000\003#\243\245\243\000\004#\250\245\243\000\005#\243\244\000\006#\246\244\000\007#\243\251\000\010#\246\251\000\t#\243\246\000\n#\246\247\000\013#\243\246\000\014#\246\245\000\r#\250\000\016#\247\000\017#\246\246\000\020#\243\246\245\243\000\021#\250\246\245\243\000\022#\244\246\000\023#\243\245\000\024#\243\242\247\000\025#\243\243\250\000\026#\243\246\250\000\027#\243\242\253\000\030#\243\243\253\000\031#\243\246\253\000\032#\243\242\243\243\000\033#\243\243\243\243\000\034#\243\246\243\243\000\035#\243\242\243\246\000\036#\243\243\243\246\000\037#\243\246\243\246\000 #\243\242\243\243\000!#\243\243\243\243\000\"#\243\246\243\243\000##\243\242\243\243\243\000$#\243\243\243\243\243\000%#\243\246\243\243\243\000&#\243\242\243\000\'#\243\243\243\000(#\243\246\000)#\243\245\000*#\245\243\243\242\246\000+#\245\243\243\242\251\000,#\245\243\246\242\251\000-#\245\243\250\242\246\000.#\245\243\243\242\247\246\000";
+    static const char *extraTextFormatInfo = "5\000#\246\244\000\001#\246\244\000\002#\246\244\000\003#\243\245\243\000\004#\250\245\243\000\005#\243\244\000\006#\246\244\000\007#\243\251\000\010#\246\251\000\t#\243\246\000\n#\246\247\000\013#\243\246\000\014#\246\245\000\r#\250\000\016#\247\000\017#\246\246\000\020#\243\246\245\243\000\021#\250\246\245\243\000\022#\244\246\000\023#\244\246\000\024#\243\245\000\025#\243\242\247\000\026#\243\243\250\000\027#\243\246\250\000\030#\243\242\253\000\031#\243\243\253\000\032#\243\246\253\000\033#\243\242\243\243\000\034#\243\243\243\243\000\035#\243\246\243\243\000\036#\243\242\243\246\000\037#\243\243\243\246\000 #\243\246\243\246\000!#\243\242\243\243\000\"#\243\243\243\243\000##\243\246\243\243\000$#\243\242\243\243\243\000%#\243\243\243\243\243\000&#\243\246\243\243\243\000\'#\243\242\243\000(#\243\243\243\000)#\243\246\000*#\243\245\000+#\243\242\246\250\000,#\243\246\246\250\000-#\243\243\246\250\000.#\245\243\243\242\246\000/#\245\243\243\242\251\0000#\245\243\246\242\251\0001#\245\243\250\242\246\0002#\245\243\243\242\247\246\0003#\245\243\244\246\242\242\246\0004$\000";
     GPBEnumDescriptor *worker =
         [GPBEnumDescriptor allocDescriptorForName:GPBNSStringifySymbol(RolePermission)
                                        valueNames:valueNames
@@ -126,7 +146,8 @@ GPBEnumDescriptor *RolePermission_EnumDescriptor(void) {
                                             count:(uint32_t)(sizeof(values) / sizeof(int32_t))
                                      enumVerifier:RolePermission_IsValidValue
                               extraTextFormatInfo:extraTextFormatInfo];
-    if (!OSAtomicCompareAndSwapPtrBarrier(nil, worker, (void * volatile *)&descriptor)) {
+    GPBEnumDescriptor *expected = nil;
+    if (!atomic_compare_exchange_strong(&descriptor, &expected, worker)) {
       [worker release];
     }
   }
@@ -153,6 +174,7 @@ BOOL RolePermission_IsValidValue(int32_t value__) {
     case RolePermission_CanCreateDomain:
     case RolePermission_CanAddDomainAssetQty:
     case RolePermission_CanSubtractDomainAssetQty:
+    case RolePermission_CanCallEngine:
     case RolePermission_CanReadAssets:
     case RolePermission_CanGetRoles:
     case RolePermission_CanGetMyAccount:
@@ -177,11 +199,16 @@ BOOL RolePermission_IsValidValue(int32_t value__) {
     case RolePermission_CanGetAllTxs:
     case RolePermission_CanGetBlocks:
     case RolePermission_CanGetPeers:
+    case RolePermission_CanGetMyEngineReceipts:
+    case RolePermission_CanGetDomainEngineReceipts:
+    case RolePermission_CanGetAllEngineReceipts:
     case RolePermission_CanGrantCanSetMyQuorum:
     case RolePermission_CanGrantCanAddMySignatory:
     case RolePermission_CanGrantCanRemoveMySignatory:
     case RolePermission_CanGrantCanTransferMyAssets:
     case RolePermission_CanGrantCanSetMyAccountDetail:
+    case RolePermission_CanGrantCanCallEngineOnMyBehalf:
+    case RolePermission_Root:
       return YES;
     default:
       return NO;
@@ -191,20 +218,21 @@ BOOL RolePermission_IsValidValue(int32_t value__) {
 #pragma mark - Enum GrantablePermission
 
 GPBEnumDescriptor *GrantablePermission_EnumDescriptor(void) {
-  static GPBEnumDescriptor *descriptor = NULL;
+  static _Atomic(GPBEnumDescriptor*) descriptor = nil;
   if (!descriptor) {
     static const char *valueNames =
         "CanAddMySignatory\000CanRemoveMySignatory\000C"
         "anSetMyQuorum\000CanSetMyAccountDetail\000CanT"
-        "ransferMyAssets\000";
+        "ransferMyAssets\000CanCallEngineOnMyBehalf\000";
     static const int32_t values[] = {
         GrantablePermission_CanAddMySignatory,
         GrantablePermission_CanRemoveMySignatory,
         GrantablePermission_CanSetMyQuorum,
         GrantablePermission_CanSetMyAccountDetail,
         GrantablePermission_CanTransferMyAssets,
+        GrantablePermission_CanCallEngineOnMyBehalf,
     };
-    static const char *extraTextFormatInfo = "\005\000#\243\242\251\000\001#\246\242\251\000\002#\243\242\246\000\003#\243\242\247\246\000\004#\250\242\246\000";
+    static const char *extraTextFormatInfo = "\006\000#\243\242\251\000\001#\246\242\251\000\002#\243\242\246\000\003#\243\242\247\246\000\004#\250\242\246\000\005#\244\246\242\242\246\000";
     GPBEnumDescriptor *worker =
         [GPBEnumDescriptor allocDescriptorForName:GPBNSStringifySymbol(GrantablePermission)
                                        valueNames:valueNames
@@ -212,7 +240,8 @@ GPBEnumDescriptor *GrantablePermission_EnumDescriptor(void) {
                                             count:(uint32_t)(sizeof(values) / sizeof(int32_t))
                                      enumVerifier:GrantablePermission_IsValidValue
                               extraTextFormatInfo:extraTextFormatInfo];
-    if (!OSAtomicCompareAndSwapPtrBarrier(nil, worker, (void * volatile *)&descriptor)) {
+    GPBEnumDescriptor *expected = nil;
+    if (!atomic_compare_exchange_strong(&descriptor, &expected, worker)) {
       [worker release];
     }
   }
@@ -226,6 +255,7 @@ BOOL GrantablePermission_IsValidValue(int32_t value__) {
     case GrantablePermission_CanSetMyQuorum:
     case GrantablePermission_CanSetMyAccountDetail:
     case GrantablePermission_CanTransferMyAssets:
+    case GrantablePermission_CanCallEngineOnMyBehalf:
       return YES;
     default:
       return NO;
@@ -253,20 +283,20 @@ typedef struct Signature__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "publicKey",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = Signature_FieldNumber_PublicKey,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(Signature__storage_, publicKey),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
         .name = "signature",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = Signature_FieldNumber_Signature,
         .hasIndex = 1,
         .offset = (uint32_t)offsetof(Signature__storage_, signature),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
     };
@@ -277,8 +307,10 @@ typedef struct Signature__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(Signature__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -290,13 +322,16 @@ typedef struct Signature__storage_ {
 
 @implementation Peer
 
+@dynamic certificateOneOfCase;
 @dynamic address;
 @dynamic peerKey;
+@dynamic tlsCertificate;
 
 typedef struct Peer__storage_ {
-  uint32_t _has_storage_[1];
+  uint32_t _has_storage_[2];
   NSString *address;
   NSString *peerKey;
+  NSString *tlsCertificate;
 } Peer__storage_;
 
 // This method is threadsafe because it is initially called
@@ -307,19 +342,28 @@ typedef struct Peer__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "address",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = Peer_FieldNumber_Address,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(Peer__storage_, address),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
         .name = "peerKey",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = Peer_FieldNumber_PeerKey,
         .hasIndex = 1,
         .offset = (uint32_t)offsetof(Peer__storage_, peerKey),
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
+        .dataType = GPBDataTypeString,
+      },
+      {
+        .name = "tlsCertificate",
+        .dataTypeSpecific.clazz = Nil,
+        .number = Peer_FieldNumber_TlsCertificate,
+        .hasIndex = -1,
+        .offset = (uint32_t)offsetof(Peer__storage_, tlsCertificate),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeString,
       },
@@ -331,8 +375,16 @@ typedef struct Peer__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(Peer__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    static const char *oneofs[] = {
+      "certificate",
+    };
+    [localDescriptor setupOneofs:oneofs
+                           count:(uint32_t)(sizeof(oneofs) / sizeof(char*))
+                   firstHasIndex:-1];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -340,6 +392,11 @@ typedef struct Peer__storage_ {
 
 @end
 
+void Peer_ClearCertificateOneOfCase(Peer *message) {
+  GPBDescriptor *descriptor = [Peer descriptor];
+  GPBOneofDescriptor *oneof = [descriptor.oneofs objectAtIndex:0];
+  GPBClearOneof(message, oneof);
+}
 #pragma mark - AccountDetailRecordId
 
 @implementation AccountDetailRecordId
@@ -361,20 +418,20 @@ typedef struct AccountDetailRecordId__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "writer",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = AccountDetailRecordId_FieldNumber_Writer,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(AccountDetailRecordId__storage_, writer),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
         .name = "key",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = AccountDetailRecordId_FieldNumber_Key,
         .hasIndex = 1,
         .offset = (uint32_t)offsetof(AccountDetailRecordId__storage_, key),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
     };
@@ -385,8 +442,10 @@ typedef struct AccountDetailRecordId__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(AccountDetailRecordId__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -394,6 +453,230 @@ typedef struct AccountDetailRecordId__storage_ {
 
 @end
 
+#pragma mark - EngineLog
+
+@implementation EngineLog
+
+@dynamic address;
+@dynamic data_p;
+@dynamic topicsArray, topicsArray_Count;
+
+typedef struct EngineLog__storage_ {
+  uint32_t _has_storage_[1];
+  NSString *address;
+  NSString *data_p;
+  NSMutableArray *topicsArray;
+} EngineLog__storage_;
+
+// This method is threadsafe because it is initially called
+// in +initialize for each subclass.
++ (GPBDescriptor *)descriptor {
+  static GPBDescriptor *descriptor = nil;
+  if (!descriptor) {
+    static GPBMessageFieldDescription fields[] = {
+      {
+        .name = "address",
+        .dataTypeSpecific.clazz = Nil,
+        .number = EngineLog_FieldNumber_Address,
+        .hasIndex = 0,
+        .offset = (uint32_t)offsetof(EngineLog__storage_, address),
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
+        .dataType = GPBDataTypeString,
+      },
+      {
+        .name = "data_p",
+        .dataTypeSpecific.clazz = Nil,
+        .number = EngineLog_FieldNumber_Data_p,
+        .hasIndex = 1,
+        .offset = (uint32_t)offsetof(EngineLog__storage_, data_p),
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
+        .dataType = GPBDataTypeString,
+      },
+      {
+        .name = "topicsArray",
+        .dataTypeSpecific.clazz = Nil,
+        .number = EngineLog_FieldNumber_TopicsArray,
+        .hasIndex = GPBNoHasBit,
+        .offset = (uint32_t)offsetof(EngineLog__storage_, topicsArray),
+        .flags = GPBFieldRepeated,
+        .dataType = GPBDataTypeString,
+      },
+    };
+    GPBDescriptor *localDescriptor =
+        [GPBDescriptor allocDescriptorForClass:[EngineLog class]
+                                     rootClass:[PrimitiveRoot class]
+                                          file:PrimitiveRoot_FileDescriptor()
+                                        fields:fields
+                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
+                                   storageSize:sizeof(EngineLog__storage_)
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
+    descriptor = localDescriptor;
+  }
+  return descriptor;
+}
+
+@end
+
+#pragma mark - CallResult
+
+@implementation CallResult
+
+@dynamic callee;
+@dynamic resultData;
+
+typedef struct CallResult__storage_ {
+  uint32_t _has_storage_[1];
+  NSString *callee;
+  NSString *resultData;
+} CallResult__storage_;
+
+// This method is threadsafe because it is initially called
+// in +initialize for each subclass.
++ (GPBDescriptor *)descriptor {
+  static GPBDescriptor *descriptor = nil;
+  if (!descriptor) {
+    static GPBMessageFieldDescription fields[] = {
+      {
+        .name = "callee",
+        .dataTypeSpecific.clazz = Nil,
+        .number = CallResult_FieldNumber_Callee,
+        .hasIndex = 0,
+        .offset = (uint32_t)offsetof(CallResult__storage_, callee),
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
+        .dataType = GPBDataTypeString,
+      },
+      {
+        .name = "resultData",
+        .dataTypeSpecific.clazz = Nil,
+        .number = CallResult_FieldNumber_ResultData,
+        .hasIndex = 1,
+        .offset = (uint32_t)offsetof(CallResult__storage_, resultData),
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
+        .dataType = GPBDataTypeString,
+      },
+    };
+    GPBDescriptor *localDescriptor =
+        [GPBDescriptor allocDescriptorForClass:[CallResult class]
+                                     rootClass:[PrimitiveRoot class]
+                                          file:PrimitiveRoot_FileDescriptor()
+                                        fields:fields
+                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
+                                   storageSize:sizeof(CallResult__storage_)
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
+    descriptor = localDescriptor;
+  }
+  return descriptor;
+}
+
+@end
+
+#pragma mark - EngineReceipt
+
+@implementation EngineReceipt
+
+@dynamic resultOrContractAddressOneOfCase;
+@dynamic commandIndex;
+@dynamic caller;
+@dynamic callResult;
+@dynamic contractAddress;
+@dynamic logsArray, logsArray_Count;
+
+typedef struct EngineReceipt__storage_ {
+  uint32_t _has_storage_[2];
+  int32_t commandIndex;
+  NSString *caller;
+  CallResult *callResult;
+  NSString *contractAddress;
+  NSMutableArray *logsArray;
+} EngineReceipt__storage_;
+
+// This method is threadsafe because it is initially called
+// in +initialize for each subclass.
++ (GPBDescriptor *)descriptor {
+  static GPBDescriptor *descriptor = nil;
+  if (!descriptor) {
+    static GPBMessageFieldDescription fields[] = {
+      {
+        .name = "commandIndex",
+        .dataTypeSpecific.clazz = Nil,
+        .number = EngineReceipt_FieldNumber_CommandIndex,
+        .hasIndex = 0,
+        .offset = (uint32_t)offsetof(EngineReceipt__storage_, commandIndex),
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
+        .dataType = GPBDataTypeInt32,
+      },
+      {
+        .name = "caller",
+        .dataTypeSpecific.clazz = Nil,
+        .number = EngineReceipt_FieldNumber_Caller,
+        .hasIndex = 1,
+        .offset = (uint32_t)offsetof(EngineReceipt__storage_, caller),
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
+        .dataType = GPBDataTypeString,
+      },
+      {
+        .name = "callResult",
+        .dataTypeSpecific.clazz = GPBObjCClass(CallResult),
+        .number = EngineReceipt_FieldNumber_CallResult,
+        .hasIndex = -1,
+        .offset = (uint32_t)offsetof(EngineReceipt__storage_, callResult),
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeMessage,
+      },
+      {
+        .name = "contractAddress",
+        .dataTypeSpecific.clazz = Nil,
+        .number = EngineReceipt_FieldNumber_ContractAddress,
+        .hasIndex = -1,
+        .offset = (uint32_t)offsetof(EngineReceipt__storage_, contractAddress),
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeString,
+      },
+      {
+        .name = "logsArray",
+        .dataTypeSpecific.clazz = GPBObjCClass(EngineLog),
+        .number = EngineReceipt_FieldNumber_LogsArray,
+        .hasIndex = GPBNoHasBit,
+        .offset = (uint32_t)offsetof(EngineReceipt__storage_, logsArray),
+        .flags = GPBFieldRepeated,
+        .dataType = GPBDataTypeMessage,
+      },
+    };
+    GPBDescriptor *localDescriptor =
+        [GPBDescriptor allocDescriptorForClass:[EngineReceipt class]
+                                     rootClass:[PrimitiveRoot class]
+                                          file:PrimitiveRoot_FileDescriptor()
+                                        fields:fields
+                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
+                                   storageSize:sizeof(EngineReceipt__storage_)
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    static const char *oneofs[] = {
+      "resultOrContractAddress",
+    };
+    [localDescriptor setupOneofs:oneofs
+                           count:(uint32_t)(sizeof(oneofs) / sizeof(char*))
+                   firstHasIndex:-1];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
+    descriptor = localDescriptor;
+  }
+  return descriptor;
+}
+
+@end
+
+void EngineReceipt_ClearResultOrContractAddressOneOfCase(EngineReceipt *message) {
+  GPBDescriptor *descriptor = [EngineReceipt descriptor];
+  GPBOneofDescriptor *oneof = [descriptor.oneofs objectAtIndex:0];
+  GPBClearOneof(message, oneof);
+}
 
 #pragma clang diagnostic pop
 

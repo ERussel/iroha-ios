@@ -13,14 +13,28 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "Transaction.pbobjc.h"
- #import "Commands.pbobjc.h"
- #import "Primitive.pbobjc.h"
+#import <stdatomic.h>
+
+#import "Transaction.pbobjc.h"
+#import "Commands.pbobjc.h"
+#import "Primitive.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 #pragma clang diagnostic ignored "-Wdirect-ivar-access"
+#pragma clang diagnostic ignored "-Wdollar-in-identifier-extension"
+
+#pragma mark - Objective C Class declarations
+// Forward declarations of Objective C classes that we can use as
+// static values in struct initializers.
+// We don't use [Foo class] because it is not a static value.
+GPBObjCClassDeclaration(Command);
+GPBObjCClassDeclaration(Signature);
+GPBObjCClassDeclaration(Transaction);
+GPBObjCClassDeclaration(Transaction_Payload);
+GPBObjCClassDeclaration(Transaction_Payload_BatchMeta);
+GPBObjCClassDeclaration(Transaction_Payload_ReducedPayload);
 
 #pragma mark - TransactionRoot
 
@@ -66,7 +80,7 @@ typedef struct Transaction__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "payload",
-        .dataTypeSpecific.className = GPBStringifySymbol(Transaction_Payload),
+        .dataTypeSpecific.clazz = GPBObjCClass(Transaction_Payload),
         .number = Transaction_FieldNumber_Payload,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(Transaction__storage_, payload),
@@ -75,7 +89,7 @@ typedef struct Transaction__storage_ {
       },
       {
         .name = "signaturesArray",
-        .dataTypeSpecific.className = GPBStringifySymbol(Signature),
+        .dataTypeSpecific.clazz = GPBObjCClass(Signature),
         .number = Transaction_FieldNumber_SignaturesArray,
         .hasIndex = GPBNoHasBit,
         .offset = (uint32_t)offsetof(Transaction__storage_, signaturesArray),
@@ -90,8 +104,10 @@ typedef struct Transaction__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(Transaction__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -121,7 +137,7 @@ typedef struct Transaction_Payload__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "reducedPayload",
-        .dataTypeSpecific.className = GPBStringifySymbol(Transaction_Payload_ReducedPayload),
+        .dataTypeSpecific.clazz = GPBObjCClass(Transaction_Payload_ReducedPayload),
         .number = Transaction_Payload_FieldNumber_ReducedPayload,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(Transaction_Payload__storage_, reducedPayload),
@@ -130,7 +146,7 @@ typedef struct Transaction_Payload__storage_ {
       },
       {
         .name = "batch",
-        .dataTypeSpecific.className = GPBStringifySymbol(Transaction_Payload_BatchMeta),
+        .dataTypeSpecific.clazz = GPBObjCClass(Transaction_Payload_BatchMeta),
         .number = Transaction_Payload_FieldNumber_Batch,
         .hasIndex = -1,
         .offset = (uint32_t)offsetof(Transaction_Payload__storage_, batch),
@@ -145,15 +161,17 @@ typedef struct Transaction_Payload__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(Transaction_Payload__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
     static const char *oneofs[] = {
       "optionalBatchMeta",
     };
     [localDescriptor setupOneofs:oneofs
                            count:(uint32_t)(sizeof(oneofs) / sizeof(char*))
                    firstHasIndex:-1];
-    [localDescriptor setupContainingMessageClassName:GPBStringifySymbol(Transaction)];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+    [localDescriptor setupContainingMessageClass:GPBObjCClass(Transaction)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -162,9 +180,9 @@ typedef struct Transaction_Payload__storage_ {
 @end
 
 void Transaction_Payload_ClearOptionalBatchMetaOneOfCase(Transaction_Payload *message) {
-  GPBDescriptor *descriptor = [message descriptor];
+  GPBDescriptor *descriptor = [Transaction_Payload descriptor];
   GPBOneofDescriptor *oneof = [descriptor.oneofs objectAtIndex:0];
-  GPBMaybeClearOneof(message, oneof, -1, 0);
+  GPBClearOneof(message, oneof);
 }
 #pragma mark - Transaction_Payload_BatchMeta
 
@@ -191,12 +209,12 @@ typedef struct Transaction_Payload_BatchMeta__storage_ {
         .number = Transaction_Payload_BatchMeta_FieldNumber_Type,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(Transaction_Payload_BatchMeta__storage_, type),
-        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldHasEnumDescriptor),
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldHasEnumDescriptor | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeEnum,
       },
       {
         .name = "reducedHashesArray",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = Transaction_Payload_BatchMeta_FieldNumber_ReducedHashesArray,
         .hasIndex = GPBNoHasBit,
         .offset = (uint32_t)offsetof(Transaction_Payload_BatchMeta__storage_, reducedHashesArray),
@@ -211,9 +229,11 @@ typedef struct Transaction_Payload_BatchMeta__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(Transaction_Payload_BatchMeta__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    [localDescriptor setupContainingMessageClassName:GPBStringifySymbol(Transaction_Payload)];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    [localDescriptor setupContainingMessageClass:GPBObjCClass(Transaction_Payload)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
@@ -224,19 +244,19 @@ typedef struct Transaction_Payload_BatchMeta__storage_ {
 int32_t Transaction_Payload_BatchMeta_Type_RawValue(Transaction_Payload_BatchMeta *message) {
   GPBDescriptor *descriptor = [Transaction_Payload_BatchMeta descriptor];
   GPBFieldDescriptor *field = [descriptor fieldWithNumber:Transaction_Payload_BatchMeta_FieldNumber_Type];
-  return GPBGetMessageInt32Field(message, field);
+  return GPBGetMessageRawEnumField(message, field);
 }
 
 void SetTransaction_Payload_BatchMeta_Type_RawValue(Transaction_Payload_BatchMeta *message, int32_t value) {
   GPBDescriptor *descriptor = [Transaction_Payload_BatchMeta descriptor];
   GPBFieldDescriptor *field = [descriptor fieldWithNumber:Transaction_Payload_BatchMeta_FieldNumber_Type];
-  GPBSetInt32IvarWithFieldInternal(message, field, value, descriptor.file.syntax);
+  GPBSetMessageRawEnumField(message, field, value);
 }
 
 #pragma mark - Enum Transaction_Payload_BatchMeta_BatchType
 
 GPBEnumDescriptor *Transaction_Payload_BatchMeta_BatchType_EnumDescriptor(void) {
-  static GPBEnumDescriptor *descriptor = NULL;
+  static _Atomic(GPBEnumDescriptor*) descriptor = nil;
   if (!descriptor) {
     static const char *valueNames =
         "Atomic\000Ordered\000";
@@ -250,7 +270,8 @@ GPBEnumDescriptor *Transaction_Payload_BatchMeta_BatchType_EnumDescriptor(void) 
                                            values:values
                                             count:(uint32_t)(sizeof(values) / sizeof(int32_t))
                                      enumVerifier:Transaction_Payload_BatchMeta_BatchType_IsValidValue];
-    if (!OSAtomicCompareAndSwapPtrBarrier(nil, worker, (void * volatile *)&descriptor)) {
+    GPBEnumDescriptor *expected = nil;
+    if (!atomic_compare_exchange_strong(&descriptor, &expected, worker)) {
       [worker release];
     }
   }
@@ -292,7 +313,7 @@ typedef struct Transaction_Payload_ReducedPayload__storage_ {
     static GPBMessageFieldDescription fields[] = {
       {
         .name = "commandsArray",
-        .dataTypeSpecific.className = GPBStringifySymbol(Command),
+        .dataTypeSpecific.clazz = GPBObjCClass(Command),
         .number = Transaction_Payload_ReducedPayload_FieldNumber_CommandsArray,
         .hasIndex = GPBNoHasBit,
         .offset = (uint32_t)offsetof(Transaction_Payload_ReducedPayload__storage_, commandsArray),
@@ -301,29 +322,29 @@ typedef struct Transaction_Payload_ReducedPayload__storage_ {
       },
       {
         .name = "creatorAccountId",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = Transaction_Payload_ReducedPayload_FieldNumber_CreatorAccountId,
         .hasIndex = 0,
         .offset = (uint32_t)offsetof(Transaction_Payload_ReducedPayload__storage_, creatorAccountId),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeString,
       },
       {
         .name = "createdTime",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = Transaction_Payload_ReducedPayload_FieldNumber_CreatedTime,
         .hasIndex = 1,
         .offset = (uint32_t)offsetof(Transaction_Payload_ReducedPayload__storage_, createdTime),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeUInt64,
       },
       {
         .name = "quorum",
-        .dataTypeSpecific.className = NULL,
+        .dataTypeSpecific.clazz = Nil,
         .number = Transaction_Payload_ReducedPayload_FieldNumber_Quorum,
         .hasIndex = 2,
         .offset = (uint32_t)offsetof(Transaction_Payload_ReducedPayload__storage_, quorum),
-        .flags = GPBFieldOptional,
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
         .dataType = GPBDataTypeUInt32,
       },
     };
@@ -334,9 +355,11 @@ typedef struct Transaction_Payload_ReducedPayload__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(Transaction_Payload_ReducedPayload__storage_)
-                                         flags:GPBDescriptorInitializationFlag_None];
-    [localDescriptor setupContainingMessageClassName:GPBStringifySymbol(Transaction_Payload)];
-    NSAssert(descriptor == nil, @"Startup recursed!");
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    [localDescriptor setupContainingMessageClass:GPBObjCClass(Transaction_Payload)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
     descriptor = localDescriptor;
   }
   return descriptor;
