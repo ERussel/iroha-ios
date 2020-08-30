@@ -27,5 +27,7 @@ typedef NS_ENUM(NSUInteger, IRGrantablePermissionError) {
 + (nonnull id<IRGrantablePermission>)canRemoveMySignatory;
 + (nonnull id<IRGrantablePermission>)canSetMyQuorum;
 + (nonnull id<IRGrantablePermission>)canSetMyAccountDetail;
++ (nonnull id<IRGrantablePermission>)canTransferMyAssets;
++ (nonnull id<IRGrantablePermission>)canCallEngineOnMyBehalf;
 
 @end

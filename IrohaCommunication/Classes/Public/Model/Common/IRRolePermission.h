@@ -50,7 +50,8 @@ typedef NS_ENUM(NSUInteger, IRRolePermissionError) {
 + (id<IRRolePermission>)canCreateDomain;
 + (id<IRRolePermission>)canAddDomainAssetQuantity;
 + (id<IRRolePermission>)canSubtractDomainAssetQuantity;
-
++ (id<IRRolePermission>)canCallEngine;
++ (id<IRRolePermission>)root;
 
 #pragma mark - Query permissions
 
@@ -78,6 +79,8 @@ typedef NS_ENUM(NSUInteger, IRRolePermissionError) {
 + (id<IRRolePermission>)canGetAllTransactions;
 + (id<IRRolePermission>)canGetBlocks;
 + (id<IRRolePermission>)canGetPeers;
++ (id<IRRolePermission>)canGetMyEngineReceipts;
++ (id<IRRolePermission>)canGetAllEngineReceipts;
 
 
 #pragma mark - Grant permissions
@@ -87,6 +90,7 @@ typedef NS_ENUM(NSUInteger, IRRolePermissionError) {
 + (id<IRRolePermission>)canGrantCanRemoveMySignatory;
 + (id<IRRolePermission>)canGrantCanTransferMyAssets;
 + (id<IRRolePermission>)canGrantCanSetMyAccountDetail;
++ (id<IRRolePermission>)canGrantCanCallEngineOnMyBehalf;
 
 @end
 

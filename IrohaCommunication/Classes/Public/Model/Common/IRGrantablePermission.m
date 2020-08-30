@@ -69,4 +69,12 @@
     return [self permissionWithValue:GrantablePermission_CanSetMyAccountDetail error:nil];
 }
 
++ (nonnull id<IRGrantablePermission>)canTransferMyAssets {
+    return [self permissionWithValue:GrantablePermission_CanTransferMyAssets error:nil];
+}
+
++ (nonnull id<IRGrantablePermission>)canCallEngineOnMyBehalf {
+    return [self permissionWithValue:GrantablePermission_CanCallEngineOnMyBehalf error:nil];
+}
+
 @end

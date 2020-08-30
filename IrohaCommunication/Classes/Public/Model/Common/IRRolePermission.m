@@ -127,6 +127,14 @@
     return [self permissionWithValue:RolePermission_CanSubtractDomainAssetQty error:nil];
 }
 
++ (id<IRRolePermission>)canCallEngine {
+    return [self permissionWithValue:RolePermission_CanCallEngine error:nil];
+}
+
++ (id<IRRolePermission>)root {
+    return [self permissionWithValue:RolePermission_Root error:nil];
+}
+
 #pragma mark - Query permissions
 
 + (nonnull id<IRRolePermission>)canReadAssets {
@@ -225,6 +233,14 @@
     return [self permissionWithValue:RolePermission_CanGetPeers error:nil];
 }
 
++ (id<IRRolePermission>)canGetMyEngineReceipts {
+    return [self permissionWithValue:RolePermission_CanGetMyEngineReceipts error:nil];
+}
+
++ (id<IRRolePermission>)canGetAllEngineReceipts {
+    return [self permissionWithValue:RolePermission_CanGetAllEngineReceipts error:nil];
+}
+
 #pragma mark - Grant permissions
 
 + (nonnull id<IRRolePermission>)canGrantCanSetMyQuorum {
@@ -245,6 +261,11 @@
 
 + (nonnull id<IRRolePermission>)canGrantCanSetMyAccountDetail {
     return [self permissionWithValue:RolePermission_CanGrantCanSetMyAccountDetail error:nil];
+}
+
++ (id<IRRolePermission>)canGrantCanCallEngineOnMyBehalf {
+    return [self permissionWithValue:RolePermission_CanGrantCanCallEngineOnMyBehalf
+                               error:nil];
 }
 
 @end
