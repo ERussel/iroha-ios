@@ -489,11 +489,18 @@
     if (!accountId) {
         return nil;
     }
+
+    NSString *oldValue = nil;
+
+    if (pbCommand.optOldValueOneOfCase == CompareAndSetAccountDetail_OptOldValue_OneOfCase_OldValue) {
+        oldValue = pbCommand.oldValue;
+    }
     
     return [[IRCompareAndSetAccountDetail alloc] initWithAccountId:accountId
                                                                key:pbCommand.key
                                                              value:pbCommand.value
-                                                          oldValue:pbCommand.oldValue];
+                                                          oldValue:oldValue
+                                                        checkEmpty:pbCommand.checkEmpty];
 }
 
 + (nullable id<IRPublicKeyProtocol>)createPublicKeyFromRawData:(nonnull NSData *)rawData error:(NSError **)error {

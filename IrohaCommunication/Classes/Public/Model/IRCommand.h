@@ -166,6 +166,7 @@
 @property (nonatomic, readonly) NSString * _Nonnull key;
 @property (nonatomic, readonly) NSString * _Nonnull value;
 @property (nonatomic, readonly) NSString * _Nullable oldValue;
+@property (nonatomic, readonly) BOOL checkEmpty;
 
 @end
 

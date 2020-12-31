@@ -1102,6 +1102,7 @@ typedef struct SubtractAssetQuantity__storage_ {
 @dynamic key;
 @dynamic value;
 @dynamic oldValue;
+@dynamic checkEmpty;
 
 typedef struct CompareAndSetAccountDetail__storage_ {
   uint32_t _has_storage_[2];
@@ -1152,6 +1153,15 @@ typedef struct CompareAndSetAccountDetail__storage_ {
         .offset = (uint32_t)offsetof(CompareAndSetAccountDetail__storage_, oldValue),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeString,
+      },
+      {
+        .name = "checkEmpty",
+        .dataTypeSpecific.clazz = Nil,
+        .number = CompareAndSetAccountDetail_FieldNumber_CheckEmpty,
+        .hasIndex = 3,
+        .offset = 4,  // Stored in _has_storage_ to save space.
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
+        .dataType = GPBDataTypeBool,
       },
     };
     GPBDescriptor *localDescriptor =

@@ -394,6 +394,7 @@ typedef GPB_ENUM(CompareAndSetAccountDetail_FieldNumber) {
   CompareAndSetAccountDetail_FieldNumber_Key = 2,
   CompareAndSetAccountDetail_FieldNumber_Value = 3,
   CompareAndSetAccountDetail_FieldNumber_OldValue = 4,
+  CompareAndSetAccountDetail_FieldNumber_CheckEmpty = 5,
 };
 
 typedef GPB_ENUM(CompareAndSetAccountDetail_OptOldValue_OneOfCase) {
@@ -412,6 +413,8 @@ GPB_FINAL @interface CompareAndSetAccountDetail : GPBMessage
 @property(nonatomic, readonly) CompareAndSetAccountDetail_OptOldValue_OneOfCase optOldValueOneOfCase;
 
 @property(nonatomic, readwrite, copy, null_resettable) NSString *oldValue;
+
+@property(nonatomic, readwrite) BOOL checkEmpty;
 
 @end
 

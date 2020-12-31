@@ -234,11 +234,13 @@ static const NSUInteger DEFAULT_QUORUM = 1;
 - (nonnull instancetype)compareAndSet:(nonnull id<IRAccountId>)accountId
                                   key:(nonnull NSString *)key
                                 value:(nonnull NSString *)value
-                             oldValue:(nullable NSString *)oldValue {
+                             oldValue:(nullable NSString *)oldValue
+                           checkEmpty:(BOOL)checkEmpty {
     IRCompareAndSetAccountDetail *command = [[IRCompareAndSetAccountDetail alloc] initWithAccountId:accountId
                                                                                                 key:key
                                                                                               value:value
-                                                                                           oldValue:oldValue];
+                                                                                           oldValue:oldValue
+                                                                                         checkEmpty:checkEmpty];
     [self addCommand:command];
     
     return self;

@@ -211,11 +211,20 @@ static NSString * const VALID_ROLE = @"admin";
     builder = [builder createRole:roleName permissions:@[]];
     builder = [builder detachRole:accountId roleName:roleName];
     builder = [builder grantPermission:accountId permission:[IRGrantablePermissionFactory canSetMyAccountDetail]];
+    builder = [builder grantPermission:accountId permission:[IRGrantablePermissionFactory canTransferMyAssets]];
+    builder = [builder grantPermission:accountId permission:[IRGrantablePermissionFactory canCallEngineOnMyBehalf]];
     builder = [builder removeSignatory:accountId publicKey:[keypair publicKey]];
     builder = [builder revokePermission:accountId permission:[IRGrantablePermissionFactory canAddMySignatory]];
     builder = [builder setAccountDetail:accountId key:@"key" value:@"value"];
     builder = [builder setAccountQuorum:accountId quorum:1];
     builder = [builder subtractAssetQuantity:assetId amount:amount];
+
+    builder = [builder compareAndSet:accountId
+                                 key:@"key"
+                               value:@"value"
+                            oldValue:NULL
+                          checkEmpty:TRUE];
+    
     builder = [builder transferAsset:accountId
                   destinationAccount:accountId
                              assetId:assetId
