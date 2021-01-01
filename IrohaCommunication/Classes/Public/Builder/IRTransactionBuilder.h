@@ -87,4 +87,8 @@ typedef NS_ENUM(NSUInteger, IRTransactionBuilderError) {
                              oldValue:(nullable NSString *)oldValue
                            checkEmpty:(BOOL)checkEmpty;
 
+- (nonnull instancetype)callEngine:(nonnull id<IRAccountId>)caller
+                            callee:(nullable NSData*)callee
+                             input:(nonnull NSData*)input;
+
 @end

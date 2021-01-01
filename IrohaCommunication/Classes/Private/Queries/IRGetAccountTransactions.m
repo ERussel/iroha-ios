@@ -6,6 +6,7 @@
 #import "IRGetAccountTransactions.h"
 #import "Queries.pbobjc.h"
 #import <IrohaCrypto/NSData+Hex.h>
+#import "IRPaginationTransformer.h"
 
 @implementation IRGetAccountTransactions
 @synthesize accountId = _accountId;
@@ -28,11 +29,7 @@
     query.accountId = [_accountId identifier];
 
     if (_pagination) {
-        TxPaginationMeta *pagination = [[TxPaginationMeta alloc] init];
-        pagination.pageSize = (uint32_t)_pagination.pageSize;
-        pagination.firstTxHash = [_pagination.firstItemHash toHexString];
-
-        query.paginationMeta = pagination;
+        query.paginationMeta = [IRPaginationTransformer metaFromPagination:_pagination];
     }
 
     Query_Payload *payload = [[Query_Payload alloc] init];

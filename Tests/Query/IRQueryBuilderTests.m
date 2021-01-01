@@ -145,10 +145,15 @@ static UInt32 DETAIL_PAGE_SIZE = 10;
     
     id<IRRoleName> roleName = [IRRoleNameFactory roleWithName:VALID_ROLE
                                                         error:nil];
-    
-    id<IRPagination> pagination = [IRPaginationFactory pagination:10
-                                                    firstItemHash:nil
-                                                            error:nil];
+
+    id<IRPaginationBuilderProtocol> paginationBuilder = [IRPaginationBuilder builder];
+    paginationBuilder = [paginationBuilder withPageSize:10];
+    paginationBuilder = [paginationBuilder withOrderingField:IROrderingFieldTime
+                                                   direction:IROrderingDirectionAscending];
+    paginationBuilder = [paginationBuilder withOrderingField:IROrderingFieldBlockPosition
+                                                   direction:IROrderingDirectionAscending];
+
+    id<IRPagination> pagination = [paginationBuilder build:nil];
 
     id<IRAssetPagination> assetPagination = [IRAssetPaginationFactory assetPagination:DETAIL_PAGE_SIZE startingAssetId:assetId];
     
@@ -208,8 +213,12 @@ static UInt32 DETAIL_PAGE_SIZE = 10;
                                                                     arguments:@[assetId]
                                                                      protocol:@protocol(IRGetAssetInfo)];
 
-    IRQueryTestCase *getPendingTransaction = [[IRQueryTestCase alloc] initWithSelector:@selector(getPendingTransactions)
+    IRQueryTestCase *getPendingTransactionDep = [[IRQueryTestCase alloc] initWithSelector:@selector(getPendingTransactions)
                                                                              arguments:nil
+                                                                              protocol:@protocol(IRGetPendingTransactions)];
+
+    IRQueryTestCase *getPendingTransaction = [[IRQueryTestCase alloc] initWithSelector:@selector(getPendingTransactions:)
+                                                                             arguments:@[pagination]
                                                                               protocol:@protocol(IRGetPendingTransactions)];
     
     IRQueryTestCase *getPeers = [[IRQueryTestCase alloc] initWithSelector:@selector(getPeers)
@@ -228,6 +237,7 @@ static UInt32 DETAIL_PAGE_SIZE = 10;
              getRoles,
              getRolePermission,
              getAssetInfo,
+             getPendingTransactionDep,
              getPendingTransaction,
              getPeers];
 }

@@ -170,5 +170,13 @@
 
 @end
 
+@protocol IRCallEngine <IRCommand>
+
+@property (nonatomic, readonly) id<IRAccountId> _Nonnull caller;
+@property (nonatomic, readonly) NSData * _Nullable callee;
+@property (nonatomic, readonly) NSData * _Nonnull input;
+
+@end
+
 
 #endif

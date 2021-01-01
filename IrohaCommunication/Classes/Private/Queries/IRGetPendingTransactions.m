@@ -5,6 +5,7 @@
 
 #import "IRGetPendingTransactions.h"
 #import "Queries.pbobjc.h"
+#import "IRPaginationTransformer.h"
 @import IrohaCrypto;
 
 @implementation IRGetPendingTransactions
@@ -25,11 +26,7 @@
     GetPendingTransactions *query = [[GetPendingTransactions alloc] init];
     
     if (_pagination) {
-        TxPaginationMeta *meta = [TxPaginationMeta new];
-        meta.pageSize = _pagination.pageSize;
-        meta.firstTxHash = [_pagination.firstItemHash toHexString];
-        
-        query.paginationMeta = meta;
+        query.paginationMeta = [IRPaginationTransformer metaFromPagination:_pagination];
     }
 
     Query_Payload *payload = [[Query_Payload alloc] init];

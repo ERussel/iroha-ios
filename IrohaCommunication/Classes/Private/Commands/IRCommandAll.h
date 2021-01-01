@@ -19,5 +19,6 @@
 #import "IRTransferAsset.h"
 #import "IRRemovePeer.h"
 #import "IRCompareAndSetAccountDetail.h"
+#import "IRCallEngine.h"
 
 #endif

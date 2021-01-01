@@ -246,6 +246,18 @@ static const NSUInteger DEFAULT_QUORUM = 1;
     return self;
 }
 
+- (nonnull instancetype)callEngine:(nonnull id<IRAccountId>)caller
+                            callee:(nullable NSData*)callee
+                             input:(nonnull NSData*)input {
+    IRCallEngine *command = [[IRCallEngine alloc] initWithCaller:caller
+                                                          callee:callee
+                                                           input:input];
+
+    [self addCommand:command];
+
+    return self;
+}
+
 
 #pragma mark - Protocol
 

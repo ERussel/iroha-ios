@@ -4,51 +4,9 @@
  */
 
 #import "IRPagination.h"
+#import "IRPaginationImpl.h"
 
 static const UInt32 PAGINATION_SIZE = 50;
-
-@interface IRPagination : NSObject<IRPagination>
-
-@end
-
-@implementation IRPagination
-@synthesize pageSize = _pageSize;
-@synthesize firstItemHash = _firstItemHash;
-@synthesize orderingDescriptor = _orderingDescriptor;
-
-- (nonnull instancetype)initWithPageSize:(UInt32)pageSize
-                           firstItemHash:(nullable NSData *)firstItemHash
-                      orderingDescriptor:(nullable NSArray<IROrdering> *)orderingDescriptor {
-    if (self = [super init]) {
-        _pageSize = pageSize;
-        _firstItemHash = firstItemHash;
-        _orderingDescriptor = orderingDescriptor;
-    }
-
-    return self;
-}
-
-@end
-
-@interface IROrdering : NSObject<IROrdering>
-
-@end
-
-@implementation IROrdering
-@synthesize field = _field;
-@synthesize direction = _direction;
-
-- (nonnull instancetype)initWithField:(IROrderingField)field
-                            direction:(IROrderingDirection)direction {
-    if (self = [super init]) {
-        _field = field;
-        _direction = direction;
-    }
-
-    return self;
-}
-
-@end
 
 @interface IRPaginationBuilder()
 
