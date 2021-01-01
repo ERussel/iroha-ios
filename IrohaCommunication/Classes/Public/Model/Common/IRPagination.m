@@ -5,6 +5,8 @@
 
 #import "IRPagination.h"
 
+static const UInt32 PAGINATION_SIZE = 50;
+
 @interface IRPagination : NSObject<IRPagination>
 
 @end
@@ -12,14 +14,97 @@
 @implementation IRPagination
 @synthesize pageSize = _pageSize;
 @synthesize firstItemHash = _firstItemHash;
+@synthesize orderingDescriptor = _orderingDescriptor;
 
 - (nonnull instancetype)initWithPageSize:(UInt32)pageSize
-                           firstItemHash:(nullable NSData *)firstItemHash {
+                           firstItemHash:(nullable NSData *)firstItemHash
+                      orderingDescriptor:(nullable NSArray<IROrdering> *)orderingDescriptor {
     if (self = [super init]) {
         _pageSize = pageSize;
         _firstItemHash = firstItemHash;
+        _orderingDescriptor = orderingDescriptor;
     }
 
+    return self;
+}
+
+@end
+
+@interface IROrdering : NSObject<IROrdering>
+
+@end
+
+@implementation IROrdering
+@synthesize field = _field;
+@synthesize direction = _direction;
+
+- (nonnull instancetype)initWithField:(IROrderingField)field
+                            direction:(IROrderingDirection)direction {
+    if (self = [super init]) {
+        _field = field;
+        _direction = direction;
+    }
+
+    return self;
+}
+
+@end
+
+@interface IRPaginationBuilder()
+
+@property (nonatomic, readwrite)UInt32 pageSize;
+@property (nonatomic, strong)NSData  * _Nullable firstItemHash;
+@property (nonatomic, strong)NSMutableArray<IROrdering>  * _Nullable orderingDescriptor;
+
+@end
+
+@implementation IRPaginationBuilder
+
++ (nonnull instancetype)builder {
+    return [[IRPaginationBuilder alloc] init];
+}
+
+- (nullable id<IRPagination>)build:(NSError * _Nullable __autoreleasing * _Nullable)error {
+    if (_firstItemHash && _firstItemHash.length != 32) {
+        if (error) {
+            NSString *message = @"Item hash must be 32 byte length";
+            *error = [NSError errorWithDomain:NSStringFromClass([IRPaginationBuilder class])
+                                         code:IRPaginationFactoryErrorInvalidHash
+                                     userInfo:@{NSLocalizedDescriptionKey: message}];
+        }
+        return nil;
+    }
+
+    return [[IRPagination alloc] initWithPageSize:_pageSize > 0 ? _pageSize : PAGINATION_SIZE
+                                    firstItemHash:_firstItemHash
+                               orderingDescriptor:_orderingDescriptor];
+}
+
+- (nonnull id<IRPaginationBuilderProtocol>)withFirstItemHash:(nonnull NSData *)itemHash {
+    _firstItemHash = itemHash;
+    return self;
+}
+
+- (nonnull id<IRPaginationBuilderProtocol>)withOrderingField:(IROrderingField)field
+                                                   direction:(IROrderingDirection)direction {
+    if (!_orderingDescriptor) {
+        _orderingDescriptor = [NSMutableArray<IROrdering> array];
+    }
+
+    for (id<IROrdering> ordering in _orderingDescriptor) {
+        if (ordering.field == field) {
+            return self;
+        }
+    }
+
+    IROrdering *ordering = [[IROrdering alloc] initWithField:field direction:direction];
+    [_orderingDescriptor addObject:ordering];
+
+    return self;
+}
+
+- (nonnull id<IRPaginationBuilderProtocol>)withPageSize:(UInt32)pageSize {
+    _pageSize = pageSize;
     return self;
 }
 
@@ -40,7 +125,9 @@
         return nil;
     }
 
-    return [[IRPagination alloc] initWithPageSize:pageSize firstItemHash:firstItemHash];
+    return [[IRPagination alloc] initWithPageSize:pageSize
+                                    firstItemHash:firstItemHash
+                               orderingDescriptor:nil];
 }
 
 @end
