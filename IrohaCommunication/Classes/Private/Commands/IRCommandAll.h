@@ -20,5 +20,6 @@
 #import "IRRemovePeer.h"
 #import "IRCompareAndSetAccountDetail.h"
 #import "IRCallEngine.h"
+#import "IRSetSettingValue.h"
 
 #endif

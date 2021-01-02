@@ -6,6 +6,7 @@
 @import XCTest;
 @import IrohaCommunication;
 @import IrohaCrypto;
+#import "IrohaCommunication/IRSetSettingValue.h"
 
 #import "IrohaCommunication/IRTransactionImpl+Proto.h"
 
@@ -80,52 +81,37 @@ static NSString * const VALID_ROLE = @"admin";
     XCTAssertNotNil(transaction);
     XCTAssertNil(error);
 
-    error = nil;
+    if (transaction) {
+        [self performSerializationTestWithTransaction:transaction];
+    }
+}
 
-    id<IRCryptoKeypairProtocol> keypair = [[[IRIrohaKeyFactory alloc] init] createRandomKeypair:&error];
+- (void)testSetSettingValueCommand {
+    NSError *error = nil;
 
-    XCTAssertNil(error, "Keypair creation failed: %@", [error localizedDescription]);
+    id<IRDomain> domain = [IRDomainFactory domainWithIdentitifer:VALID_DOMAIN error:nil];
 
-    error = nil;
+    id<IRAccountId> accountId = [IRAccountIdFactory accountIdWithName:VALID_ACCOUNT_NAME
+                                                               domain:domain
+                                                                error:nil];
 
-    id<IRTransaction> signedTransaction = [self createSignedFromTransaction:transaction
-                                                                    keypair:keypair
-                                                                      error:&error];
+    id<IRSetSettingValue> command = [[IRSetSettingValue alloc] initWithKey:@"key"
+                                                                     value:@"value"];
 
-    error = nil;
-    NSData* transactionData = [IRSerializationFactory serializeTransaction:signedTransaction error:&error];
+    id<IRTransaction> transaction = [[IRTransaction alloc] initWithCreatorAccountId:accountId
+                                                                          createdAt:[NSDate date]
+                                                                           commands:@[command]
+                                                                             quorum: 1
+                                                                         signatures:@[]
+                                                                        batchHashes:@[]
+                                                                          batchType:IRTransactionBatchTypeNone];
 
-    XCTAssertNotNil(transactionData);
+    XCTAssertNotNil(transaction);
     XCTAssertNil(error);
 
-    error = nil;
-    id<IRTransaction> restoredTransaction = [IRSerializationFactory deserializeTransactionFromData:transactionData
-                                                                                             error:&error];
-
-    XCTAssertNotNil(restoredTransaction);
-    XCTAssertNil(error);
-
-    error = nil;
-    NSData *restoredHash = [restoredTransaction transactionHashWithError:&error];
-
-    XCTAssertNotNil(restoredHash);
-    XCTAssertNil(error);
-
-    error = nil;
-    NSData *originalHash = [signedTransaction transactionHashWithError:&error];
-
-    XCTAssertNotNil(originalHash);
-    XCTAssertNil(error);
-
-    XCTAssertEqualObjects(restoredHash, originalHash);
-
-    XCTAssertEqual(signedTransaction.signatures.count, restoredTransaction.signatures.count);
-
-    id<IRPeerSignature> originalSignature = signedTransaction.signatures.firstObject;
-    id<IRPeerSignature> restoredSignature = restoredTransaction.signatures.firstObject;
-
-    XCTAssertEqualObjects(originalSignature.signature.rawData, restoredSignature.signature.rawData);
-    XCTAssertEqualObjects(originalSignature.publicKey.rawData, restoredSignature.publicKey.rawData);
+    if (transaction) {
+        [self performSerializationTestWithTransaction:transaction];
+    }
 }
 
 - (void)testBatchInitialization {
@@ -178,6 +164,55 @@ static NSString * const VALID_ROLE = @"admin";
 }
 
 #pragma mark - Private
+
+- (void)performSerializationTestWithTransaction:(id<IRTransaction>)transaction {
+    NSError *error = nil;
+
+    id<IRCryptoKeypairProtocol> keypair = [[[IRIrohaKeyFactory alloc] init] createRandomKeypair:&error];
+
+    XCTAssertNil(error, "Keypair creation failed: %@", [error localizedDescription]);
+
+    error = nil;
+
+    id<IRTransaction> signedTransaction = [self createSignedFromTransaction:transaction
+                                                                    keypair:keypair
+                                                                      error:&error];
+
+    error = nil;
+    NSData* transactionData = [IRSerializationFactory serializeTransaction:signedTransaction error:&error];
+
+    XCTAssertNotNil(transactionData);
+    XCTAssertNil(error);
+
+    error = nil;
+    id<IRTransaction> restoredTransaction = [IRSerializationFactory deserializeTransactionFromData:transactionData
+                                                                                             error:&error];
+
+    XCTAssertNotNil(restoredTransaction);
+    XCTAssertNil(error);
+
+    error = nil;
+    NSData *restoredHash = [restoredTransaction transactionHashWithError:&error];
+
+    XCTAssertNotNil(restoredHash);
+    XCTAssertNil(error);
+
+    error = nil;
+    NSData *originalHash = [signedTransaction transactionHashWithError:&error];
+
+    XCTAssertNotNil(originalHash);
+    XCTAssertNil(error);
+
+    XCTAssertEqualObjects(restoredHash, originalHash);
+
+    XCTAssertEqual(signedTransaction.signatures.count, restoredTransaction.signatures.count);
+
+    id<IRPeerSignature> originalSignature = signedTransaction.signatures.firstObject;
+    id<IRPeerSignature> restoredSignature = restoredTransaction.signatures.firstObject;
+
+    XCTAssertEqualObjects(originalSignature.signature.rawData, restoredSignature.signature.rawData);
+    XCTAssertEqualObjects(originalSignature.publicKey.rawData, restoredSignature.publicKey.rawData);
+}
 
 - (nullable id<IRTransaction>)createTransactionWithAllCommands:(NSError **)error {
     id<IRDomain> domain = [IRDomainFactory domainWithIdentitifer:VALID_DOMAIN error:nil];

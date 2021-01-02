@@ -88,6 +88,9 @@
             return  [self callEngineCommandFromPbCommand:command.callEngine
                                                    error:error];
             break;
+        case Command_Command_OneOfCase_SetSettingValue:
+            return [self setSettingValueFromPbCommand:command.setSettingValue
+                                                error:error];
         default:
             if (error) {
                 NSString *message = [NSString stringWithFormat:@"Invalid transaction command %@", @(command.commandOneOfCase)];
@@ -544,6 +547,12 @@
     return [[IRCallEngine alloc] initWithCaller:caller
                                          callee:callee
                                           input:inputData];
+}
+
++ (nullable id<IRSetSettingValue>)setSettingValueFromPbCommand:(nonnull SetSettingValue*)pbCommand
+                                                         error:(NSError**)error {
+    return [[IRSetSettingValue alloc] initWithKey:pbCommand.key
+                                            value:pbCommand.value];
 }
 
 + (nullable id<IRPublicKeyProtocol>)createPublicKeyFromRawData:(nonnull NSData *)rawData error:(NSError **)error {
