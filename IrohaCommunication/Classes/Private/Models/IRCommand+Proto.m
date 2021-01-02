@@ -84,6 +84,10 @@
         case Command_Command_OneOfCase_CompareAndSetAccountDetail:
             return [self compareAndSetAccountDetailCommandFromPbCommand:command.compareAndSetAccountDetail error:error];
             break;
+        case Command_Command_OneOfCase_CallEngine:
+            return  [self callEngineCommandFromPbCommand:command.callEngine
+                                                   error:error];
+            break;
         default:
             if (error) {
                 NSString *message = [NSString stringWithFormat:@"Invalid transaction command %@", @(command.commandOneOfCase)];
@@ -501,6 +505,45 @@
                                                              value:pbCommand.value
                                                           oldValue:oldValue
                                                         checkEmpty:pbCommand.checkEmpty];
+}
+
++ (nullable id<IRCallEngine>)callEngineCommandFromPbCommand:(nonnull CallEngine*)pbCommand
+                                                      error:(NSError**)error {
+    id<IRAccountId> caller = [IRAccountIdFactory accountWithIdentifier:pbCommand.caller
+                                                                 error:error];
+
+    if (!caller) {
+        return nil;
+    }
+
+    id<IREVMAddress> callee = nil;
+
+    if (pbCommand.optCalleeOneOfCase == CallEngine_OptCallee_OneOfCase_Callee) {
+        NSData *calleeData = [[NSData alloc] initWithHexString:pbCommand.callee
+                                                         error:error];
+
+        if (!calleeData) {
+            return nil;
+        }
+
+        callee = [IREVMAddressFactory evmAddressWithRawData:calleeData
+                                                      error:error];
+
+        if (!callee) {
+            return nil;
+        }
+    }
+
+    NSData *inputData = [[NSData alloc] initWithHexString:pbCommand.input
+                                                    error:error];
+
+    if (!inputData) {
+        return nil;
+    }
+
+    return [[IRCallEngine alloc] initWithCaller:caller
+                                         callee:callee
+                                          input:inputData];
 }
 
 + (nullable id<IRPublicKeyProtocol>)createPublicKeyFromRawData:(nonnull NSData *)rawData error:(NSError **)error {

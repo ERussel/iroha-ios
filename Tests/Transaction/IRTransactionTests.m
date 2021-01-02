@@ -194,6 +194,14 @@ static NSString * const VALID_ROLE = @"admin";
                                                        port:VALID_PORT
                                                       error:nil];
 
+    NSData *evmAddressData = [[NSData alloc] initWithHexString:@"ae16540a2db328b03c17c8c63db269d16cfe0099"
+                                                     error:nil];
+
+    NSData *evmInputData = [[NSData alloc] initWithHexString:@"0x00" error:nil];
+
+    id<IREVMAddress> evmAddress = [IREVMAddressFactory evmAddressWithRawData:evmAddressData
+                                                                       error:nil];
+
     id<IRTransferAmount> amount = [IRAmountFactory transferAmountFromUnsignedInteger:100 error:nil];
 
     id<IRRoleName> roleName = [IRRoleNameFactory roleWithName:VALID_ROLE error:nil];
@@ -218,6 +226,10 @@ static NSString * const VALID_ROLE = @"admin";
     builder = [builder setAccountDetail:accountId key:@"key" value:@"value"];
     builder = [builder setAccountQuorum:accountId quorum:1];
     builder = [builder subtractAssetQuantity:assetId amount:amount];
+    builder = [builder callEngine:accountId
+                           callee:evmAddress
+                            input:evmInputData];
+
 
     builder = [builder compareAndSet:accountId
                                  key:@"key"

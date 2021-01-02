@@ -13,7 +13,7 @@
 @synthesize input = _input;
 
 - (nonnull instancetype)initWithCaller:(nonnull id<IRAccountId>)caller
-                                callee:(nullable NSData*)callee
+                                callee:(nullable id<IREVMAddress>)callee
                                  input:(nonnull NSData*)input {
     if (self = [super init]) {
         _caller = caller;
@@ -31,7 +31,7 @@
     callEngine.caller = [_caller identifier];
 
     if (_callee) {
-        callEngine.callee = [_callee toHexString];
+        callEngine.callee = [_callee.rawData toHexString];
     }
 
     callEngine.input = [_input toHexString];

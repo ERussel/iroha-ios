@@ -247,7 +247,7 @@ static const NSUInteger DEFAULT_QUORUM = 1;
 }
 
 - (nonnull instancetype)callEngine:(nonnull id<IRAccountId>)caller
-                            callee:(nullable NSData*)callee
+                            callee:(nullable id<IREVMAddress>)callee
                              input:(nonnull NSData*)input {
     IRCallEngine *command = [[IRCallEngine alloc] initWithCaller:caller
                                                           callee:callee

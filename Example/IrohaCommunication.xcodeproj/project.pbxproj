@@ -53,6 +53,7 @@
 		844761D3224A4946009ADC0E /* IRInvalidSerializationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 844761D2224A4946009ADC0E /* IRInvalidSerializationTests.m */; };
 		844761F1224A5133009ADC0E /* IRQueryResponseDeserializationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 844761F0224A5133009ADC0E /* IRQueryResponseDeserializationTests.m */; };
 		8481A59122FD48800056D3D4 /* IRAssetPaginationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8481A59022FD48800056D3D4 /* IRAssetPaginationTests.m */; };
+		84BE422E25A0966B008448E7 /* IREVMAddressTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BE422D25A0966B008448E7 /* IREVMAddressTests.m */; };
 		84C7481B259FA1A3000821EC /* IRPaginationBuilderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C7481A259FA1A3000821EC /* IRPaginationBuilderTests.m */; };
 		84D693FB22EDCDB10059C1FB /* IRAccountRestoreWithBatchTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D693FA22EDCDB10059C1FB /* IRAccountRestoreWithBatchTest.m */; };
 		8BA6158423255099002C33D8 /* IRGetAccountDetailTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA6158323255099002C33D8 /* IRGetAccountDetailTest.m */; };
@@ -159,6 +160,7 @@
 		8481A5A122FD4D790056D3D4 /* Endpoint.pbrpc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Endpoint.pbrpc.h; sourceTree = "<group>"; };
 		8481A5A222FD4D790056D3D4 /* Queries.pbobjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Queries.pbobjc.h; sourceTree = "<group>"; };
 		8481A5A422FD4D790056D3D4 /* Transaction.pbobjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transaction.pbobjc.h; sourceTree = "<group>"; };
+		84BE422D25A0966B008448E7 /* IREVMAddressTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IREVMAddressTests.m; sourceTree = "<group>"; };
 		84C7481A259FA1A3000821EC /* IRPaginationBuilderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IRPaginationBuilderTests.m; sourceTree = "<group>"; };
 		84D693FA22EDCDB10059C1FB /* IRAccountRestoreWithBatchTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IRAccountRestoreWithBatchTest.m; sourceTree = "<group>"; };
 		84EA860F14455E442B5C9B29 /* IrohaCommunication.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = IrohaCommunication.podspec; path = ../IrohaCommunication.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -237,6 +239,7 @@
 				8BB6C2BE23164E04009B7AEA /* IRAccountDetailPaginationTests.m */,
 				021C24EF21DDF706005D5304 /* IRAccountAssetTests.m */,
 				84C7481A259FA1A3000821EC /* IRPaginationBuilderTests.m */,
+				84BE422D25A0966B008448E7 /* IREVMAddressTests.m */,
 			);
 			name = Model;
 			path = ../../Tests/Model;
@@ -853,6 +856,7 @@
 			files = (
 				02E3198B21D0FEF000B33B66 /* IRTransactionTests.m in Sources */,
 				0200346F21C840D1001A6A53 /* IRAmountTests.m in Sources */,
+				84BE422E25A0966B008448E7 /* IREVMAddressTests.m in Sources */,
 				02E319DD21DBB18500B33B66 /* IRPromiseTests.m in Sources */,
 				0200347521C8516F001A6A53 /* IRGrantablePermissionTests.m in Sources */,
 				0200347121C849FF001A6A53 /* IRAssetIdTests.m in Sources */,

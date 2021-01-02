@@ -10,7 +10,7 @@
 @interface IRCallEngine : NSObject<IRCallEngine, IRProtobufTransformable>
 
 - (nonnull instancetype)initWithCaller:(nonnull id<IRAccountId>)caller
-                                callee:(nullable NSData*)callee
+                                callee:(nullable id<IREVMAddress>)callee
                                  input:(nonnull NSData*)input;
 
 @end
