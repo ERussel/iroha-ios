@@ -15,7 +15,7 @@
 #import "IRAccountDetailRecordId.h"
 #import "IRPeer.h"
 #import "IRBatchInfo.h"
-
+#import "IREngineReceipt.h"
 
 @protocol IRQueryResponse <NSObject>
 
@@ -131,6 +131,12 @@ typedef NS_ENUM(NSUInteger, IRErrorResponseReason) {
 @protocol IRPeersResponse <IRQueryResponse>
 
 @property (nonatomic, readonly) NSArray<id<IRPeer>> * _Nonnull peers;
+
+@end
+
+@protocol IREngineReceiptsResponse <IRQueryResponse>
+
+@property (nonatomic, readonly, nonnull) NSArray<IREngineReceipt>* receipts;
 
 @end
 

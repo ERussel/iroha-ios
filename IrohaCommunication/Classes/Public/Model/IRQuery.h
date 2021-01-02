@@ -102,4 +102,10 @@
 @protocol IRGetPeers <IRQuery>
 @end
 
+@protocol IRGetEngineReceipts <IRQuery>
+
+@property (nonatomic, readonly, nonnull) NSData *transactionHash;
+
+@end
+
 #endif

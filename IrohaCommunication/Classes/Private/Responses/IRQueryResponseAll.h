@@ -13,5 +13,6 @@
 #import "IRTransactionsPageResponse.h"
 #import "IRPendingTransactionsPageResponse.h"
 #import "IRPeersResponse.h"
+#import "IREngineReceiptsResponse.h"
 
 #endif /* IRQueryResponseAll_h */

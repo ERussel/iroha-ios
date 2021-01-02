@@ -63,4 +63,6 @@ typedef NS_ENUM(NSUInteger, IRQueryBuilderError) {
 
 - (nonnull instancetype)getPeers;
 
+- (nonnull instancetype)getEngineReceipts:(nonnull NSData *)transactionHash;
+
 @end

@@ -11,6 +11,9 @@
 #import "IRTransactionImpl+Proto.h"
 #import "Primitive.pbobjc.h"
 #import "IRBatchInfo.h"
+#import "IREngineReceiptImpl.h"
+#import "IREngineLogImpl.h"
+#import "IRCallResultImpl.h"
 
 @implementation IRQueryResponseProtoFactory
 
@@ -93,6 +96,11 @@
             break;
         case QueryResponse_Response_OneOfCase_PeersResponse:
             return [self peersResponseFromPbResponse:pbResponse.peersResponse queryHash:queryHash error:error];
+            break;
+        case QueryResponse_Response_OneOfCase_EngineReceiptsResponse:
+            return [self engineReceiptsFromPbResponse:pbResponse.engineReceiptsResponse
+                                            queryHash:queryHash
+                                                error:error];
             break;
         default:
             if (error) {
@@ -475,6 +483,114 @@
     }
     
     return [[IRPeersResponse alloc] initWithPeers:peers queryHash:queryHash];
+}
+
++ (nullable id<IREngineReceiptsResponse>)engineReceiptsFromPbResponse:(nonnull EngineReceiptsResponse*)pbResponse
+                                                            queryHash:(nonnull NSData*)queryHash
+                                                                error:(NSError **)error {
+    NSMutableArray<IREngineReceipt> *receipts = [NSMutableArray<IREngineReceipt> array];
+
+    for (EngineReceipt *pbReceipt in pbResponse.engineReceiptsArray) {
+        id<IREVMAddress> caller = [IREVMAddressFactory evmAddressWithHex:pbReceipt.caller
+                                                                   error:error];
+
+        if (!caller) {
+            return nil;
+        }
+
+        NSMutableArray<IREngineLog> *logs = [NSMutableArray<IREngineLog> array];
+
+        for (EngineLog *pbLog in pbReceipt.logsArray) {
+            id<IREVMAddress> address = [IREVMAddressFactory evmAddressWithHex:pbLog.address
+                                                                        error:error];
+
+            if (!address) {
+                return nil;
+            }
+
+            NSData *data = [[NSData alloc] initWithHexString:pbLog.data_p
+                                                       error:error];
+
+            if (!data) {
+                return nil;
+            }
+
+            NSMutableArray *topics = [NSMutableArray array];
+
+            for (NSString *pbTopic in pbLog.topicsArray) {
+                NSData *topic = [[NSData alloc] initWithHexString:pbTopic
+                                                            error:error];
+
+                if (!topic) {
+                    return nil;
+                }
+
+                [topics addObject:topic];
+            }
+
+            id<IREngineLog> log = [[IREngineLog alloc] initWithAddress:address
+                                                                  data:data
+                                                                topics:topics];
+
+            [logs addObject:log];
+        }
+
+        switch (pbReceipt.resultOrContractAddressOneOfCase) {
+            case EngineReceipt_ResultOrContractAddress_OneOfCase_CallResult: {
+                id<IREVMAddress> callee = [IREVMAddressFactory
+                                           evmAddressWithHex:pbReceipt.callResult.callee
+                                                       error:error];
+
+                if (!callee) {
+                    return nil;
+                }
+
+                NSData *data = [[NSData alloc] initWithHexString:pbReceipt.callResult.resultData
+                                                           error:error];
+
+                if (!data) {
+                    return nil;
+                }
+
+                id<IRCallResult> callResult = [[IRCallResult alloc] initWithCallee:callee
+                                                                            result:data];
+
+                id<IREngineCallReceipt> receipt = [[IREngineCallReceipt alloc]
+                                                   initWithCommandIndex:pbReceipt.commandIndex
+                                                   caller:caller
+                                                   result:callResult
+                                                   logs:logs];
+                [receipts addObject:receipt];
+                break;
+            }
+            case EngineReceipt_ResultOrContractAddress_OneOfCase_ContractAddress: {
+                id<IREVMAddress> contractAddress = [IREVMAddressFactory
+                                                    evmAddressWithHex:pbReceipt.contractAddress
+                                                    error:error];
+                if (!contractAddress) {
+                    return nil;
+                }
+
+                id<IREngineDeployReceipt> receipt = [[IREngineDeployReceipt alloc]
+                                                     initWithCommandIndex:pbReceipt.commandIndex
+                                                     caller:caller
+                                                     contractAddress:contractAddress
+                                                     logs:logs];
+                [receipts addObject:receipt];
+            }
+            default:
+                if (error) {
+                    NSString *message = [NSString stringWithFormat:@"Invalid engine receipt data %@", @(pbReceipt.resultOrContractAddressOneOfCase)];
+                    *error = [NSError errorWithDomain:NSStringFromClass([IRQueryResponseProtoFactory class])
+                                                 code:IRQueryResponseFactoryErrorInvalidResponse
+                                             userInfo:@{NSLocalizedDescriptionKey: message}];
+                }
+                break;
+        }
+    }
+
+    return [[IREngineReceiptsResponse alloc] initWithEngineReceipt:receipts
+                                                         queryHash:queryHash];
 }
 
 @end

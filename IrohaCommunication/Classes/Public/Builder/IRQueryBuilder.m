@@ -138,6 +138,12 @@ static const UInt64 DEFAULT_QUERY_COUNTER = 1;
     return [self withQuery:query];
 }
 
+- (nonnull instancetype)getEngineReceipts:(nonnull NSData *)transactionHash {
+    id<IRGetEngineReceipts> query = [[IRGetEngineReceipts alloc] initWithTransactionHash:transactionHash];
+
+    return [self withQuery:query];
+}
+
 #pragma mark - IRQueryBuilderProtocol
 
 - (nonnull instancetype)withCreatorAccountId:(nonnull id<IRAccountId>)creatorAccountId {

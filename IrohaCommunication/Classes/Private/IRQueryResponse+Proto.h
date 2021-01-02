@@ -12,7 +12,8 @@ typedef NS_ENUM(NSUInteger, IRQueryResponseFactoryError) {
     IRQueryResponseFactoryErrorQueryHashInvalid,
     IRQueryResponseFactoryErrorUnexpectedResponseType,
     IRQueryResponseFactoryErrorMissingRequiredAgrument,
-    IRQueryResponseFactoryErrorInvalidAgrument
+    IRQueryResponseFactoryErrorInvalidAgrument,
+    IRQueryResponseFactoryErrorInvalidResponse
 };
 
 @interface IRQueryResponseProtoFactory : NSObject

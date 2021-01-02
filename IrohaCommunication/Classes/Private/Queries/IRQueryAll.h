@@ -13,5 +13,6 @@
 #import "IRGetAssetInfo.h"
 #import "IRGetPendingTransactions.h"
 #import "IRGetPeers.h"
+#import "IRGetEngineReceipts.h"
 
 #endif /* IRQueryAll_h */

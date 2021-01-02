@@ -4,6 +4,7 @@
  */
 
 #import "IREVMAddress.h"
+#import <IrohaCrypto/NSData+Hex.h>
 
 static const NSUInteger EVM_ADDRESS_SIZE = 20;
 
@@ -43,6 +44,18 @@ static const NSUInteger EVM_ADDRESS_SIZE = 20;
     }
 
     return [[IREVMAddress alloc] initWithRawData:data];
+}
+
++ (nullable id<IREVMAddress>)evmAddressWithHex:(nonnull NSString*)hexString
+                                         error:(NSError *_Nullable*_Nullable)error {
+    NSData *rawData = [[NSData alloc] initWithHexString:hexString
+                                                  error:error];
+
+    if (!rawData) {
+        return nil;
+    }
+
+    return [self evmAddressWithRawData:rawData error:error];
 }
 
 @end

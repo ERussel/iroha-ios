@@ -16,6 +16,9 @@
 + (nullable id<IREVMAddress>)evmAddressWithRawData:(nonnull NSData*)data
                                              error:(NSError *_Nullable*_Nullable)error;
 
++ (nullable id<IREVMAddress>)evmAddressWithHex:(nonnull NSString*)hexString
+                                         error:(NSError *_Nullable*_Nullable)error;
+
 @end
 
 typedef NS_ENUM(NSUInteger, IREVMAddressFactoryError) {
